@@ -22,6 +22,8 @@ server.use(express.json());
 // *************** Routes *************** 
 server.get('/allCompanies'          , getItems.all);
 server.get('/allJobs'               , getItems.all);
+server.get('/activeJobs'            , getItems.all);
+server.get('/lostJobs'              , getItems.all);
 server.get('/job/:id'               , getItems.jobByID);
 server.get('/company/:id'           , getItems.companyByID);
 server.post('/addJob'               , addItem.job);

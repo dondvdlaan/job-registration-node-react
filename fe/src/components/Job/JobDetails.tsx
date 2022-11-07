@@ -2,6 +2,7 @@ import {  useNavigate, useParams }  from 'react-router-dom';
 import {Method}                     from "axios";
 import { Api, useApi }              from '../../shared/API';
 import { Job }                      from '../../types/Job';
+import { CLOSED } from '../../shared/Constants';
 
 /**
  * Component to show all details of a sngle job
@@ -14,7 +15,7 @@ export const JobDetails = () => {
     const navigate  = useNavigate();
     
     // Wait till job arrived
-    if(job === undefined){return (<p>Lade...</p>)}
+    if(!job){return (<p>Loading Job...</p>)}
 
     // ************** Event hamdling ************** 
     const onUpdate = ()=> {
@@ -76,6 +77,24 @@ export const JobDetails = () => {
             {job[0].jobStatus}
           </div>
         </div>
+
+        {job[0].jobStatus == CLOSED ?
+          <div className="row">
+            <div className="col">
+              Closed Lost Reason
+            </div>
+            <div className="col-5" >
+              {job[0].jobClosedReason}
+            </div>
+            <div className="col">
+              Close Date
+            </div>
+            <div className="col">
+              {job[0].jobCloseDate ? job[0].jobCloseDate.slice(0,10) : ""}
+            </div>
+          </div>
+        : ""
+        }
         <br />
         
         <div className="row">

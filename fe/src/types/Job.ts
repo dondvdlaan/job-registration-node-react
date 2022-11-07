@@ -14,13 +14,15 @@ export type JobStatus = Registered |Pending | Closed | Won;
 
 
 export interface Job{
-jobID           : string;     
-jobTitle        : string;
-jobDescription  : string;
-jobDetails      : string;
-jobStatus       : string;
-jobDate         : string;
-compID          : string;
-compName        : string;
-compStatus      : string;
+    jobID           : string;     
+    jobTitle        : string;
+    jobDescription  : string;
+    jobDetails      : string;
+    jobStatus       : string;
+    jobClosedReason?: string;
+    jobDate         : string;
+    jobCloseDate?   : string | null;
+    compID          : string;
+    compName        : string;
+    compStatus      : string;
 }

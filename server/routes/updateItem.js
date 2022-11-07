@@ -10,6 +10,8 @@ const job = (req, res) => {
                   req.body.jobDescription,
                   req.body.jobDetails,
                   req.body.jobStatus,
+                  req.body.jobClosedReason,
+                  req.body.jobCloseDate,
                   req.body.compID,
                   req.body.jobID
                 ]

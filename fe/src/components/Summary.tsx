@@ -1,12 +1,17 @@
 import { useApi }       from "../shared/API";
 import {  APPROACHED, 
-          REGISTERED }  from "../shared/Constants";
+          CLOSED, 
+          PENDING, 
+          REGISTERED, 
+          WON}  from "../shared/Constants";
 import { ItemSearch } from "../shared/ItemSearch";
 import { Company }      from "../types/Company";
 import { Job }          from "../types/Job";
 
 
-// Main
+/**
+ * Component to summarize the status of all jobs
+ */
 export const Summary= () =>{
 
   // ***************** Hooks and costumHooks *****************
@@ -14,7 +19,7 @@ export const Summary= () =>{
   const [companies, setCompanies] = useApi<Company[]>("allCompanies");
 
   if(!jobs || !companies){
-    return (<p>Lade...</p>)
+    return (<p>Loading...</p>)
   }
 
 return(
@@ -35,7 +40,7 @@ return(
           Pending
         </div>
         <div className="col-2">
-          Closed
+          Closed Lost
         </div>
         <div className="col-2">
           Won
@@ -49,16 +54,16 @@ return(
             {jobs.length} 
         </div>
         <div className="col-2">
-          {jobs.filter(job => job.jobStatus === "registered").length}
+          {jobs.filter(job => job.jobStatus === REGISTERED).length}
         </div>
         <div className="col-2">
-          {jobs.filter(job => job.jobStatus === "pending").length}
+          {jobs.filter(job => job.jobStatus === PENDING).length}
         </div>
         <div className="col-2">
-          {jobs.filter(job => job.jobStatus === "closed").length}
+          {jobs.filter(job => job.jobStatus === CLOSED).length}
         </div>
         <div className="col-2">
-          {jobs.filter(job => job.jobStatus === "won").length}
+          {jobs.filter(job => job.jobStatus === WON).length}
         </div>
       </div>
       <br />

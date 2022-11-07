@@ -1,4 +1,4 @@
-Dockerized job-registration-node-react-V2
+Dockerized job-registration-node-react
 
 This application is an extension of repository customer-registration-php-react. It has
 been extended and the BE is now based on Node.js. job-registration-node-react-V2 has 

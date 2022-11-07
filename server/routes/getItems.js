@@ -15,6 +15,10 @@ const all = (req, res) => {
         break;
       case '/allJobs'     : _sql = sql.allJobs;
         break;
+      case '/activeJobs'  : _sql = sql.activeJobs;
+        break;
+      case '/lostJobs'    : _sql = sql.lostJobs;
+        break;  
       default:
         console.log("No such option")
     } 

@@ -4,19 +4,23 @@ import { useApi }       from "../../shared/API";
 import { Job }          from "../../types/Job";
 import { Pagination }   from "../Pagination";
 
-
-export const AllJobs = () => {
+/**
+ * Component to show all lost Jobs ie with status Closed Lost
+ */
+export const LostJobs = () => {
   
   // ******************** Constants and variables ********************
   const [page, setPage] = useState(1);
-  const [jobs, setJobs] = useApi<Job[]>("allJobs");  
+  const [jobs, setJobs] = useApi<Job[]>("lostJobs");  
   const navigate        = useNavigate();
   const maxRowsPerPage  = 3;
   
   if(!jobs){
-    return (<p>Lade...</p>)
+    return (<p>Loading...</p>)
   }
   
+  console.log("LostJobs ", jobs)
+
   // ******************** Event handling ********************
   const onGoToDetail = (job: Job) =>{
     navigate(`/details/${job.jobID}`)

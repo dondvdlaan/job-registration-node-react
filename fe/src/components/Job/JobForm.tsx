@@ -2,6 +2,7 @@ import {Method}             from "axios";
 import React, { useState }  from "react"
 import { useNavigate }      from 'react-router-dom';
 import { Api, useApi }      from "../../shared/API";
+import { convertDate }      from "../../shared/Assistant";
 import { CLOSED, PENDING, 
     REGISTERED, WON }       from "../../shared/Constants";
 import { Company }          from "../../types/Company";
@@ -12,7 +13,10 @@ interface Props extends Job{
     isEdit      : boolean
     compName    : string
 }
-// Main
+/**
+ * Component for creating and editing a Job
+ */
+
 export const JobForm = (props: Props) =>{
     
     // ******************** Hooks and Constants ********************
@@ -21,6 +25,8 @@ export const JobForm = (props: Props) =>{
     const [jobDescription, setJobDescription]   = useState(props.jobDescription);
     const [jobDetails, setJobDetails]           = useState(props.jobDetails);
     const [jobStatus, setJobStatus]             = useState(props.jobStatus);
+    const [jobClosedReason, setJobClosedReason] = useState(props.jobClosedReason);
+    const [jobCloseDate, setJobCloseDate]       = useState(props.jobCloseDate);
     const [compID, setCompID]                   = useState(props.compID);
     const [compName, setName]                   = useState(props.compName);
     const [compStatus, setStatus]               = useState(props.compStatus);
@@ -29,29 +35,39 @@ export const JobForm = (props: Props) =>{
     
 
     if(!companies){
-        return (<p>Lade...</p>)
+        return (<p>Loading Companies...</p>)
       }
 
-      const job = {
-        jobID,
-        jobTitle,
-        jobDescription,
-        jobDetails,
-        jobStatus,
-        compID
-        }
+    // Job object prepared for sending to DB
+    const job = () => ({
+      jobID,
+      jobTitle,
+      jobDescription,
+      jobDetails,
+      jobStatus,
+      jobClosedReason,
+      jobCloseDate,
+      compID
+    })
   
 
-    // ******************** Event handling ******************** 
+    // ******************** Event handling ********************
+    const onJobClosedReason = (e: React.ChangeEvent<HTMLInputElement> ) =>{
+
+        setJobClosedReason(e.target.value);
+
+        setJobCloseDate(()=>convertDate(new Date))
+    }
+    
     const onFormSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
         console.log('Form submitted');
 
         const [method, path, jobData]:[Method, string, {}] = props.isEdit
-        ? ["PUT", `updateJob`, job]
-        : ["POST", `addJob`, job];
+        ? ["PUT", `updateJob`, job()]
+        : ["POST", `addJob`, job()];
 
-        Api(method,path, ()=>navigate('/allJobs'), jobData)
+        Api(method,path, ()=>navigate(-2), jobData)
     }
 
     return(
@@ -103,8 +119,7 @@ export const JobForm = (props: Props) =>{
         <div className="form-group row">
             <label htmlFor="jobDescription" className="col-sm-2 col-form-label">Job Description</label>
             <div className="col-sm-10">
-            <input 
-            type        ="text" 
+            <textarea
             className   ="form-control" 
             id          ="jobDescription" 
             placeholder ="Job Description"
@@ -117,8 +132,7 @@ export const JobForm = (props: Props) =>{
         <div className="form-group row">
             <label htmlFor="jobDetails" className="col-sm-2 col-form-label">Job Details</label>
             <div className="col-sm-10">
-            <input 
-            type        ="text" 
+            <textarea
             className   ="form-control" 
             id          ="jobDetails" 
             placeholder ="Job Details"
@@ -149,7 +163,24 @@ export const JobForm = (props: Props) =>{
             </select>
             </div>
         </div>
-
+        {jobStatus == CLOSED ?
+        
+        <div className="form-group row">
+            <label htmlFor="jobClosedReason" className="col-sm-2 col-form-label">Reason Closed Lost?</label>
+            <div className="col-sm-10">
+                <input 
+                type        ="text" 
+                className   ="form-control" 
+                id          ="jobClosedReason" 
+                placeholder ="Reason Closed Lost"
+                value       ={jobClosedReason}
+                onChange    ={(e)=>{onJobClosedReason(e)}}
+                required
+                />
+            </div>
+        </div>
+        : ""
+        }
         <div className="form-group row">
             <div className="col-sm-10">
             <button type="submit" className="btn btn-primary">Finished</button>
