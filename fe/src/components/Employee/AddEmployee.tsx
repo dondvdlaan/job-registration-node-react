@@ -10,7 +10,7 @@ export const AddEmployee = () =>{
         emplFirstName   = ""
         emplLastName    = ""
         emplTel         = ""
-        emplEmail       = ""
+        emplEmail       = {undefined}
         compID          = ""
         compName        = ""
         isEdit= {false}

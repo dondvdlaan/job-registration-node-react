@@ -3,6 +3,9 @@ import { useNavigate }      from 'react-router-dom';
 import { Api, 
         ApiSimplified }     from "../../shared/API";
 import { APPROACHED, 
+        ENDUSER, 
+        PARTNER, 
+        RECRUITER, 
         REGISTERED }        from "../../shared/Constants";
 import { Corporation }      from "../../types/Company";
 import css                  from "./CompanyForm.module.css";
@@ -102,14 +105,19 @@ export const CompanyForm = (props: Props) =>{
         <div className="form-group row">
             <label htmlFor="compType" className="col-sm-3 col-form-label">Company Type</label>
             <div className="col-sm-9">
-            <input 
-            type        ="text" 
-            className   ="form-control" 
-            id          ="compType" 
-            placeholder ="Company type"
-            value       ={compType}
-            onChange    ={(e)=>{setCompType(e.target.value)}}
-            />
+                <select
+                    className   ="form-control" 
+                    id          ="compType" 
+                    placeholder ="Company type"
+                    value       ={compType}
+                    onChange    ={(e)=>{setCompType(e.target.value)}}
+                    required
+                >
+                    <option value={''}  disabled selected >Company Type</option>
+                    <option value={PARTNER}>{PARTNER}</option>
+                    <option value={RECRUITER}>{RECRUITER}</option>
+                    <option value={ENDUSER}>{ENDUSER}</option>
+                </select>
             </div>
         </div>
         <div className="form-group row">

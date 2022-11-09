@@ -28,10 +28,12 @@ export function useApi<T>(path: string): [T | undefined, SetState<T | undefined>
 /*
  * Useful for calls on events or in conditions
  *
- * @param method  [Method]    : http method
- * @param path    [string]    : relative path to baseUrl
- * @param data    [function]  : callback, gets `response.data` as an argument
- * @param data    [object]    : body data
+ * @param method      [Method]    : http method
+ * @param path        [string]    : relative path to baseUrl
+ * @param callback    [function]  : callback optionally
+ * @param data        [object]    : body data
+ * @return callback   [function]  : callback, gets `response.data` as an argument
+ * 
  */
 export function Api<T>(
     method: Method, path: string,  callback?: any,
@@ -51,7 +53,14 @@ export function Api<T>(
         });
 }
 
-// Main
+/**
+ * Simplified Api for direct calling server and without callback function
+ * 
+ * @param   method  [Method]      : http method
+ * @param   path    [string]      : relative path to baseUrl
+ * @param   data    [JSON]        : optionally data can be send with message
+ * @return  axios   [AxiosPromise]: return message to be captured with .then
+ */
 export function ApiSimplified<T>(method: Method, path: string, data = {}) {
 
       const config ={

@@ -60,8 +60,8 @@ export const EmployeeForm = (props: Props) =>{
     }
 
     return(
-        <>
-        <br />
+    <>
+    <br />
     <form 
     className   = {css.employeeForm}
     onSubmit    ={onFormSubmit}>

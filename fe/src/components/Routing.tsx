@@ -10,6 +10,7 @@ import { UpdateComp } from "./Company/UpdateComp";
 import { DisplayCompany } from "./Company/DisplayCompany";
 import { AddEmployee } from "./Employee/AddEmployee";
 import { LostJobs } from "./Job/LostJobs";
+import { Partners } from "./Partners/Partners";
 
 export default function Routing(): ReactElement {
   return (
@@ -27,6 +28,8 @@ export default function Routing(): ReactElement {
       <Route path="/details/:jobID"     element={<JobDetails />} />
 
       <Route path="/addEmployee"        element={<AddEmployee />} />
+      
+      <Route path="/partners"           element={<Partners />} />
 
       <Route path="/" element={<Navigate to="/summary" />} />
 

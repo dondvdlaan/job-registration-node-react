@@ -14,11 +14,19 @@ module.exports = {
   allCompanies  : 'SELECT * FROM companies ' +
                   'LEFT JOIN employees USING(compID)' +
                   'ORDER BY compName',
+
+  partners      : 'SELECT * FROM companies ' +
+                  'WHERE companies.compType = "Partner" ' +
+                  'ORDER BY compName',
     
   jobByID       : 'SELECT * FROM jobs INNER JOIN companies USING(compID) where jobID = ?',
 
   companyByID   : 'SELECT * FROM companies left JOIN employees USING(compID) where compID = ?',
 
+  employeesPartnersByID   : 'SELECT * FROM employees ' +
+                            'WHERE compID = ? ' +
+                            'ORDER BY emplLastName',
+  
   deleteCompany : 'DELETE FROM companies where compID = ?',
 
   deleteJob     : 'DELETE FROM jobs where jobID = ?',

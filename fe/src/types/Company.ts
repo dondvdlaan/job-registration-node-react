@@ -11,7 +11,7 @@ export type CompStatus  = Approached | Registered;
 export type Corporation = Company & Employee;
 
 export interface Company{
-    compID        : string
+    compID        : string;
     compName      : string;
     compType      : string;
     compNote      : string;

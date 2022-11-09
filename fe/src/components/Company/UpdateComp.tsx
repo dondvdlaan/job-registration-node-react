@@ -13,11 +13,11 @@ import { CompanyForm }  from "./CompanyForm";
 export const UpdateComp = () =>
 {
     // Constants and Hooks
-    const { compID }    = useParams<{compID: string}>();
-    const [corporation] = useApi<Corporation[]>(`company/${compID}`);
+    const { id }        = useParams<{id: string}>();
+    const [corporation] = useApi<Corporation[]>(`company/${id}`);
 
     // Wait till data from DB arrived
-    if(corporation === undefined){return (<p>Lade...</p>)}
+    if(!corporation){return (<p>Loading Corporation...</p>)}
 
 
         return(

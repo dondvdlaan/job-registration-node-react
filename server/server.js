@@ -21,17 +21,24 @@ server.use(express.json());
 
 // *************** Routes *************** 
 server.get('/allCompanies'          , getItems.all);
+server.get('/partners'              , getItems.all);
+
 server.get('/allJobs'               , getItems.all);
 server.get('/activeJobs'            , getItems.all);
 server.get('/lostJobs'              , getItems.all);
+
 server.get('/job/:id'               , getItems.jobByID);
 server.get('/company/:id'           , getItems.companyByID);
+server.get('/employeesPartners/:id' , getItems.employeesPartnersByID);
+
 server.post('/addJob'               , addItem.job);
 server.post('/addCompany'           , addItem.company);
 server.post('/addEmployee'          , addItem.employee);
+
 server.put('/updateCompany'         , updateItem.company);
 server.put('/updateJob'             , updateItem.job);
 server.put('/updateEmployee'        , updateItem.employee);
+
 server.delete('/deleteCompany/:id'  , deleteItem.company);
 server.delete('/deleteJob/:id'      , deleteItem.job);
 

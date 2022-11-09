@@ -7,7 +7,7 @@ interface Props {
 
 export default function Menu(props: Props): ReactElement {
 
-//Constants and Variables
+// *** Constants and Variables ***
 const navLinkClassname = ({ isActive }: { isActive: boolean }) =>
     `navbar-item ${isActive ? "is-active" : ""}`;
 
@@ -22,6 +22,7 @@ const navLinkClassname = ({ isActive }: { isActive: boolean }) =>
           <NavLink className="nav-link" to="/addJob"      >New Job      </NavLink >  
           <NavLink className="nav-link" to="/addCompany"  >Add Company  </NavLink > 
           <NavLink className="nav-link" to="/addEmployee" >Add Employee </NavLink > 
+          <NavLink className="nav-link" to="/partners"    >Partners     </NavLink > 
 
         </ul>                                      
       </nav>

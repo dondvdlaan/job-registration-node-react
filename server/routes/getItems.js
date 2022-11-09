@@ -13,6 +13,8 @@ const all = (req, res) => {
     switch(req.originalUrl) {
       case '/allCompanies': _sql = sql.allCompanies;
         break;
+      case '/partners'    : _sql = sql.partners;
+        break;
       case '/allJobs'     : _sql = sql.allJobs;
         break;
       case '/activeJobs'  : _sql = sql.activeJobs;
@@ -54,8 +56,23 @@ const companyByID = (req, res) =>
     .catch(err=> console.log(err))
 };
 
+/**
+ * GET Employees of Partner by Company ID
+ */
+ const employeesPartnersByID = (req, res) => 
+ {
+     const _sql    = sql.employeesPartnersByID;
+     const values  = req.params.id;
+ 
+     db.transmit(_sql, values)
+     .then(comp=> res.send(comp))
+     .catch(err=> console.log(err))
+ };
+
+
 module.exports = {
   all,
   jobByID,
-  companyByID
+  companyByID,
+  employeesPartnersByID
 }
