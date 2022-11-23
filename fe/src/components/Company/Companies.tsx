@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef, useState }     from "react";
 import Badge            from 'react-bootstrap/Badge'
-import { Api }          from "../../shared/API";
+import { api }          from "../../shared/API";
 import { Corporation }  from "../../types/Company";
 import { Pagination }   from "../Pagination";
 import { Method }       from "axios";
@@ -81,7 +81,7 @@ export const Companies = (props: {corporations: Corporation[]}) => {
     const path: string = `deleteCompany/${compID}`;
     
     // Callback to refresh page after API
-    Api(method, path, () => window.location.reload(), {})
+    api(method, path, () => window.location.reload(), {})
   }
 
   /**

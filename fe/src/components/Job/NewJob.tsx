@@ -5,14 +5,18 @@ export const NewJob = () =>{
     return(
         <JobForm
         jobID=""
-        compID=""
         jobDate=""
-        compName=""
         compStatus=""
         jobTitle = ""
         jobDescription=""
         jobDetails=""
         jobStatus=""
+        jobContract=""
+        compID=""
+        compName=""
+        emplID=""
+        emplFirstName=""
+        emplLastName=""
         isEdit= {false}
         />
     )

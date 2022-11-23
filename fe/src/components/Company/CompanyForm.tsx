@@ -1,9 +1,11 @@
 import React, { useState }  from "react"
 import { useNavigate }      from 'react-router-dom';
-import { Api, 
+import { api, 
         ApiSimplified }     from "../../shared/API";
 import { APPROACHED, 
+        CONSULTANT, 
         ENDUSER, 
+        IT_OEM, 
         PARTNER, 
         RECRUITER, 
         REGISTERED }        from "../../shared/Constants";
@@ -71,7 +73,7 @@ export const CompanyForm = (props: Props) =>{
           // If reply is ok, add Employee is present, continue  
           if((res.status === 200) && emplID){
 
-            Api("PUT","updateEmployee", ()=>navigate('/companies'), employee())
+            api("PUT","updateEmployee", ()=>navigate('/companies'), employee())
           } 
           else navigate('/companies');
         })
@@ -117,6 +119,8 @@ export const CompanyForm = (props: Props) =>{
                     <option value={PARTNER}>{PARTNER}</option>
                     <option value={RECRUITER}>{RECRUITER}</option>
                     <option value={ENDUSER}>{ENDUSER}</option>
+                    <option value={CONSULTANT}>{CONSULTANT}</option>
+                    <option value={IT_OEM}>{IT_OEM}</option>
                 </select>
             </div>
         </div>

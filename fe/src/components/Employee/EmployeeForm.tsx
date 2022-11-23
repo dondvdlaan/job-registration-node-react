@@ -1,6 +1,6 @@
 import React, { useState }  from "react"
 import { useNavigate }      from 'react-router-dom';
-import { Api, useApi }      from "../../shared/API";
+import { api, useApi }      from "../../shared/API";
 import { Company }          from "../../types/Company";
 import { Employee }         from "../../types/Employee";
 import css                  from "./EmployeeForm.module.css";
@@ -34,6 +34,8 @@ export const EmployeeForm = (props: Props) =>{
     if(!companies){
         return (<p>Loading Companies...</p>)
     }
+
+    console.log("companies: ", companies)
     
     // Prepare employee Object to be sent to DB
     const employee = () =>({
@@ -56,7 +58,7 @@ export const EmployeeForm = (props: Props) =>{
         : ["POST", `addEmployee`];
 
         // Send to DB and go 1 page back
-        Api(method,path, ()=>navigate(-1), employee())
+        api(method,path, ()=>navigate(-1), employee())
     }
 
     return(
@@ -81,10 +83,15 @@ export const EmployeeForm = (props: Props) =>{
                 {(props.isEdit)?
                 <option value={compID}>{props.compName}</option>
                 :
-                <option value="" disabled selected >Select Company</option>
+                <option value="" disabled >Select Company</option>
                 }
                 {companies.map(company =>
-                    <option value={company.compID}>{company.compName}</option>
+                    <option 
+                        key={company.compID}
+                        value={company.compID}
+                    >
+                        {company.compName}
+                    </option>
                 )}
             </select>
             </div>

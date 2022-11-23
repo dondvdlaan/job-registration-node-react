@@ -21,7 +21,7 @@ export default function Routing(): ReactElement {
 
       <Route path="/companies"          element={<DisplayCompany />} />
       <Route path="/addCompany"         element={<AddCompany />} />
-      <Route path="/updateComp/:compID" element={<UpdateComp />} />
+      <Route path="/updateComp/:idComp" element={<UpdateComp />} />
 
       <Route path="/addJob"             element={<NewJob />} />
       <Route path="/updateJob/:jobID"   element={<UpdateJob />} />

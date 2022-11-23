@@ -22,7 +22,7 @@ if(!partners) return(<p>Loading partners...</p>)
 const onEmployees = (compID:string) =>{
   
   // Get employee data by Company ID
-  ApiSimplified("GET", `employeesPartners/${compID}`)
+  ApiSimplified("GET", `employeesCompany/${compID}`)
   .then(res=> setEmployees(res.data))
   
   // Set Active color to selected partner
@@ -94,7 +94,9 @@ return(
       
       <Col>Employees
         {employees.map(employee=>
-          <Row>
+          <Row
+            key={employee.emplID}
+          >
               <EmployeeCard 
                 employee={employee}
             />

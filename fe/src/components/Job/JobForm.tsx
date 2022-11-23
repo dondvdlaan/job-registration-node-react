@@ -1,17 +1,18 @@
 import {Method}             from "axios";
 import React, { useState }  from "react"
 import { useNavigate }      from 'react-router-dom';
-import { Api, useApi }      from "../../shared/API";
+import { api, useApi, useApi2 }      from "../../shared/API";
 import { convertDate }      from "../../shared/Assistant";
-import { CLOSED, PENDING, 
+import { CLOSED, FIXED, FREELANCE, PENDING, 
     REGISTERED, WON }       from "../../shared/Constants";
 import { Company }          from "../../types/Company";
-import { Job }              from "../../types/Job";
+import { Employee } from "../../types/Employee";
+import { Job, JobWEmployee }              from "../../types/Job";
 import css                  from "./JobForm.module.css";
 
-interface Props extends Job{
-    isEdit      : boolean
-    compName    : string
+interface Props extends JobWEmployee{
+
+    isEdit: boolean,
 }
 /**
  * Component for creating and editing a Job
@@ -27,15 +28,20 @@ export const JobForm = (props: Props) =>{
     const [jobStatus, setJobStatus]             = useState(props.jobStatus);
     const [jobClosedReason, setJobClosedReason] = useState(props.jobClosedReason);
     const [jobCloseDate, setJobCloseDate]       = useState(props.jobCloseDate);
+    const [jobContract, setJobContract]         = useState(props.jobContract);
+    
     const [compID, setCompID]                   = useState(props.compID);
     const [compName, setName]                   = useState(props.compName);
     const [compStatus, setStatus]               = useState(props.compStatus);
-    const navigate                              = useNavigate();
-    const [companies, setCompanies]             = useApi<Company[]>("allCompanies");
     
+    const [companies, setCompanies]             = useApi<Company[]>("allCompanies");
+    const [emplID, setEmplID]                   = useState(props.emplID);
+    const [employees, setEmployees]             = useApi2<Employee[] | undefined>(`employeesCompany/${compID}`,compID);
+    
+    const navigate                              = useNavigate();
 
     if(!companies){
-        return (<p>Loading Companies...</p>)
+        return (<p>Loading Companies...</p>)    
       }
 
     // Job object prepared for sending to DB
@@ -47,7 +53,9 @@ export const JobForm = (props: Props) =>{
       jobStatus,
       jobClosedReason,
       jobCloseDate,
-      compID
+      jobContract,
+      compID,
+      emplID
     })
   
 
@@ -67,38 +75,70 @@ export const JobForm = (props: Props) =>{
         ? ["PUT", `updateJob`, job()]
         : ["POST", `addJob`, job()];
 
-        Api(method,path, ()=>navigate(-2), jobData)
+        api(method,path, ()=>navigate("/activeJobs"), jobData)
     }
 
-    return(
-        <>
-        <br />
+return(
+<>
+<br />
     <form 
     className   = {css.jobForm}
     onSubmit    = {onFormSubmit}>
+
         <div className="form-group row">
             <label htmlFor="company" className="col-sm-2 col-form-label">Company</label>
             <div className="col-sm-10">
-            <select 
-            name            ="company" 
-            className       ="form-control" 
-            id              ="company" 
-            placeholder     ="-----"
-            value           ={compID} 
-            onChange        ={(e)=>{setCompID(e.target.value)}}
-            required
-            >
-                {(props.isEdit)?
-                <option value={compID}>{props.compName}</option>
-                :
-                <option value="" disabled selected >Select Company</option>
-                }
-                {companies.map(company =>
-                    <option key={company.compID} value={company.compID}>{company.compName}</option>
-                )}
-            </select>
+                <select 
+                    name            ="company"
+                    className       ="form-control" 
+                    id              ="company" 
+                    placeholder     ="-----"
+                    value           ={compID} 
+                    onChange        ={(e)=>{setCompID(e.target.value)}}
+                    required
+                >
+                    {(props.isEdit)?
+                    <option value={compID}>{compName}</option>
+                    :
+                    <option value="" disabled  >Select Company</option>
+                    }
+                    {companies.map(company =>
+                        <option 
+                            key={company.compID} 
+                            value={company.compID}
+                        >
+                            {company.compName}
+                        </option>
+                    )}
+                </select>
             </div>
         </div>
+        
+        {/* Employees listed for this company? */}
+        {employees ?
+        <div className="form-group row">
+            <label htmlFor="employee" className="col-sm-2 col-form-label">Employee</label>
+            <div className="col-sm-10">
+                <select 
+                    name            ="employee" 
+                    className       ="form-control" 
+                    id              ="employee" 
+                    placeholder     ="-----"
+                    value           ={emplID} 
+                    onChange        ={(e)=>{setEmplID(e.target.value)}}
+                >
+                    {(props.isEdit)?
+                        <option value={emplID}>{props.emplLastName}</option>
+                    :
+                        <option value="" disabled  >Select Employee</option>
+                    }
+                    {employees.map(employee =>
+                        <option key={employee.emplID} value={employee.emplID}>{employee.emplLastName}</option>
+                    )}
+                </select>
+            </div>
+        </div>
+        : "" }
 
         <div className="form-group row">
             <label htmlFor="jobTitle" className="col-sm-2 col-form-label">Job Title</label>
@@ -139,6 +179,26 @@ export const JobForm = (props: Props) =>{
             value       ={jobDetails}
             onChange    ={(e)=>{setJobDetails(e.target.value)}}
             />
+            </div>
+        </div>
+
+        <div className="form-group row">
+            <label htmlFor="jobContract" className="col-sm-2 col-form-label">Contract</label>
+            <div className="col-sm-10">
+            <select 
+            name        ="jobContract" 
+            className   ="form-control" 
+            id          ="jobContract" 
+            placeholder ="-----"
+            value       ={jobContract} 
+            onChange    ={(e)=>{setJobContract(e.target.value)}}
+            required
+            >
+                <option value={""} disabled selected  >Contract</option>
+                <option value={FIXED}>{FIXED}</option>
+                <option value={FREELANCE}>{FREELANCE}</option>
+    
+            </select>
             </div>
         </div>
 

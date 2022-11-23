@@ -1,9 +1,14 @@
+export interface EmployeeShort{
+    
+    emplFirstName : string;
+    emplLastName  : string;
+}
 
-export interface Employee{
-emplFirstName : string;
-emplLastName  : string;
-emplTel       : string;
-emplEmail     : string | undefined;
-compID        : string;
-emplID        : string | null;
+
+export interface Employee extends EmployeeShort {
+
+    emplTel       : string;
+    emplEmail     : string | undefined;
+    compID        : string;
+    emplID        : string;
 }

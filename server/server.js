@@ -29,7 +29,7 @@ server.get('/lostJobs'              , getItems.all);
 
 server.get('/job/:id'               , getItems.jobByID);
 server.get('/company/:id'           , getItems.companyByID);
-server.get('/employeesPartners/:id' , getItems.employeesPartnersByID);
+server.get('/employeesCompany/:id'  , getItems.employeesCompanyByID);
 
 server.post('/addJob'               , addItem.job);
 server.post('/addCompany'           , addItem.company);

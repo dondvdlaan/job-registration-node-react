@@ -18,12 +18,37 @@ export function useApi<T>(path: string): [T | undefined, SetState<T | undefined>
     const [data, setData] = useState<T>();
 
     useEffect(() => {
-      Api("GET", path, setData);
+      api("GET", path, setData);
     }, [path]);
 
     // console.log("data "+JSON.stringify(data))
     return [data, setData];
   }
+
+/*
+ * This useApi2 function was copied from useApi above and changed as follows:
+ * - default state is an empty array[], so the map function in jsx is not stuck
+ * - an if condition within the useEffect was added, which causes the useApi2 to 
+ * wait till the condition arrives
+ *
+ * @param path      [string]  : relative path to baseUrl
+ * @param condition [string]  : Api2 will wait till condition is fulfilled
+ * @return, Response Data
+ */
+export function useApi2<T>(path: string, condition: string)
+: [T | undefined, SetState<T | undefined>]  {
+
+const [data, setData] = useState<T>();
+
+useEffect(() => {
+
+console.log("condition: ",condition);
+
+if(condition) api("GET", path, setData);
+}, [condition]);
+
+return [data, setData];
+}
 
 /*
  * Useful for calls on events or in conditions
@@ -35,7 +60,7 @@ export function useApi<T>(path: string): [T | undefined, SetState<T | undefined>
  * @return callback   [function]  : callback, gets `response.data` as an argument
  * 
  */
-export function Api<T>(
+export function api<T>(
     method: Method, path: string,  callback?: any,
     data = {}): void {
 

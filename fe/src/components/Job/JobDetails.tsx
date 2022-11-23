@@ -1,7 +1,7 @@
 import {  useNavigate, useParams }  from 'react-router-dom';
 import {Method}                     from "axios";
-import { Api, useApi }              from '../../shared/API';
-import { Job }                      from '../../types/Job';
+import { api, useApi }              from '../../shared/API';
+import { Job, JobWEmployee }                      from '../../types/Job';
 import { CLOSED } from '../../shared/Constants';
 
 /**
@@ -11,11 +11,14 @@ export const JobDetails = () => {
 
     // ************** Constants and Hooks **************
     const { jobID } = useParams<{jobID: string}>();
-    const job       = useApi<Job[]>(`job/${jobID}`)[0];
+    const job       = useApi<JobWEmployee>(`job/${jobID}`)[0];
     const navigate  = useNavigate();
     
     // Wait till job arrived
     if(!job){return (<p>Loading Job...</p>)}
+
+    console.log("job: ", job)
+    console.log("job date: ", job.jobDate)
 
     // ************** Event hamdling ************** 
     const onUpdate = ()=> {
@@ -26,7 +29,7 @@ export const JobDetails = () => {
       const method: Method = "DELETE";
       const path: string = `deleteJob/${jobID}`;
 
-      Api(method,path, ()=>navigate('/allJobs'), {})
+      api(method,path, ()=>navigate("/activeJobs"), {})
       }
 
     return (
@@ -38,13 +41,13 @@ export const JobDetails = () => {
             Job Title
           </div>
           <div className="col-5">
-            {job[0].jobTitle}
+            {job.jobTitle}
           </div>
           <div className="col">
             Date
           </div>
           <div className="col">
-          {job[0].jobDate.slice(0,10)}
+          {job.jobDate.slice(0,10)}
           </div>
         </div>
         
@@ -53,13 +56,13 @@ export const JobDetails = () => {
             Description
           </div>
           <div className="col-5">
-            {job[0].jobDescription}
+            {job.jobDescription}
           </div>
           <div className="col">
             Company
           </div>
           <div className="col">
-            {job[0].compName}
+            {job.compName}
           </div>
         </div>
         
@@ -68,29 +71,44 @@ export const JobDetails = () => {
             Details
           </div>
           <div className="col-5" >
-            {job[0].jobDetails}
+            {job.jobDetails}
+          </div>
+          <div className="col">
+            Employee
+          </div>
+          <div className="col">
+            {job.emplFirstName}{" "}{job.emplLastName}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col">
+            Contract
+          </div>
+          <div className="col-5" >
+            {job.jobContract}
           </div>
           <div className="col">
             Status
           </div>
           <div className="col">
-            {job[0].jobStatus}
+            {job.jobStatus}
           </div>
         </div>
 
-        {job[0].jobStatus == CLOSED ?
+        {job.jobStatus == CLOSED ?
           <div className="row">
             <div className="col">
               Closed Lost Reason
             </div>
             <div className="col-5" >
-              {job[0].jobClosedReason}
+              {job.jobClosedReason}
             </div>
             <div className="col">
               Close Date
             </div>
             <div className="col">
-              {job[0].jobCloseDate ? job[0].jobCloseDate.slice(0,10) : ""}
+              {job.jobCloseDate ? job.jobCloseDate.slice(0,10) : ""}
             </div>
           </div>
         : ""

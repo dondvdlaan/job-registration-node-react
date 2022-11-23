@@ -8,7 +8,11 @@ interface Props{
     children?             : ReactNode;
 }
 
-// Main
+/*
++ Pagination component which outputs buttons previous, next and current page
+*
+* @params see props
+*/
 export const Pagination = (props:Props) =>{
 
     // ************* Constants and variables ************* 

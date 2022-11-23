@@ -26,7 +26,8 @@ const all = (req, res) => {
     } 
     
     db.transmit(_sql)
-    .then(items =>res.send(items))
+    .then(items =>{
+      res.send(items)})
     .catch(err=> console.log(err))
 };
 
@@ -39,7 +40,8 @@ const jobByID = (req, res) =>
     const values  = req.params.id;
 
     db.transmit(_sql, values)
-    .then(job=> res.send(job))
+    .then(job=> {
+      res.send(job[0])})
     .catch(err=> console.log(err))
 };
 
@@ -57,11 +59,11 @@ const companyByID = (req, res) =>
 };
 
 /**
- * GET Employees of Partner by Company ID
+ * GET Employees of Company by Company ID
  */
- const employeesPartnersByID = (req, res) => 
+ const employeesCompanyByID = (req, res) => 
  {
-     const _sql    = sql.employeesPartnersByID;
+     const _sql    = sql.employeesCompanyByID;
      const values  = req.params.id;
  
      db.transmit(_sql, values)
@@ -74,5 +76,5 @@ module.exports = {
   all,
   jobByID,
   companyByID,
-  employeesPartnersByID
+  employeesCompanyByID
 }
