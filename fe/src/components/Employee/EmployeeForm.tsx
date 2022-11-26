@@ -66,25 +66,22 @@ export const EmployeeForm = (props: Props) =>{
     <br />
     <form 
     className   = {css.employeeForm}
-    onSubmit    ={onFormSubmit}>
+    onSubmit    = {onFormSubmit}>
 
         <div className="form-group row">
             <label htmlFor="company" className="col-sm-3 col-form-label">Company</label>
             <div className="col-sm-9">
             <select 
-            name="company" 
-            className="form-control" 
-            id="company" 
-            placeholder="-----"
-            value={compID} 
-            onChange={(e)=>{setCompID(e.target.value)}}
-            required
+                name="company" 
+                className="form-control" 
+                id="company" 
+                placeholder="-----"
+                value={compID} 
+                onChange={(e)=>setCompID(e.target.value)}
+                required
             >
-                {(props.isEdit)?
-                <option value={compID}>{props.compName}</option>
-                :
-                <option value="" disabled >Select Company</option>
-                }
+                    <option value="" disabled >Select Company</option>
+
                 {companies.map(company =>
                     <option 
                         key={company.compID}

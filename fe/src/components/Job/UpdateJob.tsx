@@ -32,6 +32,7 @@ if(job.jobCloseDate){
         jobDescription  = {job.jobDescription}
         jobDetails      = {job.jobDetails}
         jobStatus       = {job.jobStatus}
+        jobNote         = {job.jobNote}
         jobContract     = {job.jobContract}
         jobClosedReason = {job.jobClosedReason}
         jobCloseDate    = {jobCloseDate}

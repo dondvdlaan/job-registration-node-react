@@ -22,6 +22,7 @@ export interface Job{
     jobDescription  : string;
     jobDetails      : string;
     jobStatus       : string;
+    jobNote         : string;
     jobClosedReason?: string;
     jobDate         : string;
     jobCloseDate?   : string | null;

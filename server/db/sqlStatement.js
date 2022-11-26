@@ -30,13 +30,17 @@ module.exports = {
                            'WHERE compID = ? ' +
                            'ORDER BY emplLastName',
 
-  deleteCompany : 'DELETE FROM companies where compID = ?',
+  deleteCompany : 'DELETE c, j, e ' +
+                  'FROM companies c ' +
+                  'INNER JOIN jobs j USING(compID) ' +
+                  'INNER JOIN employees e USING(compID) ' +
+                  'where compID = ?',
 
   deleteJob     : 'DELETE FROM jobs where jobID = ?',
 
   addJob        : 'INSERT INTO jobs' +
-                  '(jobTitle, jobDescription, jobDetails, jobStatus, jobContract, compID, emplID)' +
-                  'VALUES(?,?,?,?,?,?,?)',
+                  '(jobTitle, jobDescription, jobDetails, jobStatus, jobNote, jobContract, compID, emplID)' +
+                  'VALUES(?,?,?,?,?,?,?,?)',
 
   addCompany    : 'INSERT INTO companies(	compName, compType, compNote, compStatus) VALUES(?,?,?,?)',
 
@@ -47,7 +51,7 @@ module.exports = {
   updateCompany : 'UPDATE companies SET compName = ?, compType = ?, compNote = ?, compStatus = ? WHERE compID = ?',
 
   updateJob     : 'UPDATE jobs SET' +
-                  ' jobTitle = ?, jobDescription	=	?, jobDetails	=	?, jobStatus = ?, jobContract = ?, jobClosedReason = ?, jobCloseDate = ?, compID = ?' +
+                  ' jobTitle = ?, jobDescription	=	?, jobDetails	=	?, jobStatus = ?, jobNote = ?, jobContract = ?, jobClosedReason = ?, jobCloseDate = ?, compID = ?' +
                   ' WHERE jobID = ?',
 
   updateEmployee: 'UPDATE employees SET emplFirstName = ?, emplLastName = ?, emplTel = ?, emplEmail = ? WHERE emplID = ?'

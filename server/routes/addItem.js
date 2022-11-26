@@ -10,6 +10,7 @@ const job = (req, res) => {
                   req.body.jobDescription,
                   req.body.jobDetails,
                   req.body.jobStatus,
+                  req.body.jobNote,
                   req.body.jobContract,
                   req.body.compID,
                   req.body.emplID

@@ -11,6 +11,7 @@ export const NewJob = () =>{
         jobDescription=""
         jobDetails=""
         jobStatus=""
+        jobNote=""
         jobContract=""
         compID=""
         compName=""

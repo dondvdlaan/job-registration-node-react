@@ -26,13 +26,15 @@ export const JobForm = (props: Props) =>{
     const [jobDescription, setJobDescription]   = useState(props.jobDescription);
     const [jobDetails, setJobDetails]           = useState(props.jobDetails);
     const [jobStatus, setJobStatus]             = useState(props.jobStatus);
+    const [jobNote, setJobNote]                 = useState(props.jobNote);
     const [jobClosedReason, setJobClosedReason] = useState(props.jobClosedReason);
     const [jobCloseDate, setJobCloseDate]       = useState(props.jobCloseDate);
     const [jobContract, setJobContract]         = useState(props.jobContract);
     
     const [compID, setCompID]                   = useState(props.compID);
-    const [compName, setName]                   = useState(props.compName);
-    const [compStatus, setStatus]               = useState(props.compStatus);
+    const [compName, setCompName]               = useState(props.compName);
+    // const [compName, setCompName]               = useState(props.compName);
+    const [compStatus, setCompStatus]           = useState(props.compStatus);
     
     const [companies, setCompanies]             = useApi<Company[]>("allCompanies");
     const [emplID, setEmplID]                   = useState(props.emplID);
@@ -43,6 +45,9 @@ export const JobForm = (props: Props) =>{
     if(!companies){
         return (<p>Loading Companies...</p>)    
       }
+    
+      console.log("compNam", compName)
+
 
     // Job object prepared for sending to DB
     const job = () => ({
@@ -51,6 +56,7 @@ export const JobForm = (props: Props) =>{
       jobDescription,
       jobDetails,
       jobStatus,
+      jobNote,
       jobClosedReason,
       jobCloseDate,
       jobContract,
@@ -78,6 +84,13 @@ export const JobForm = (props: Props) =>{
         api(method,path, ()=>navigate("/activeJobs"), jobData)
     }
 
+    const onSetCompID = (e: React.ChangeEvent<HTMLSelectElement>) =>{
+        e.preventDefault();
+        console.log("node", e.currentTarget.name)
+        setCompID(e.target.value)
+        setCompName(e.currentTarget.name)
+    }
+
 return(
 <>
 <br />
@@ -89,19 +102,16 @@ return(
             <label htmlFor="company" className="col-sm-2 col-form-label">Company</label>
             <div className="col-sm-10">
                 <select 
-                    name            ="company"
+                    name            ={compName}
                     className       ="form-control" 
                     id              ="company" 
                     placeholder     ="-----"
                     value           ={compID} 
-                    onChange        ={(e)=>{setCompID(e.target.value)}}
+                    onChange        ={(e)=>{onSetCompID(e)}}
                     required
                 >
-                    {(props.isEdit)?
-                    <option value={compID}>{compName}</option>
-                    :
-                    <option value="" disabled  >Select Company</option>
-                    }
+                        <option value="" disabled  >Select Company</option>
+
                     {companies.map(company =>
                         <option 
                             key={company.compID} 
@@ -127,11 +137,8 @@ return(
                     value           ={emplID} 
                     onChange        ={(e)=>{setEmplID(e.target.value)}}
                 >
-                    {(props.isEdit)?
-                        <option value={emplID}>{props.emplLastName}</option>
-                    :
                         <option value="" disabled  >Select Employee</option>
-                    }
+
                     {employees.map(employee =>
                         <option key={employee.emplID} value={employee.emplID}>{employee.emplLastName}</option>
                     )}
@@ -223,22 +230,36 @@ return(
             </select>
             </div>
         </div>
-        {jobStatus == CLOSED ?
-        
+
         <div className="form-group row">
-            <label htmlFor="jobClosedReason" className="col-sm-2 col-form-label">Reason Closed Lost?</label>
+            <label htmlFor="jobNote" className="col-sm-2 col-form-label">Job Note</label>
             <div className="col-sm-10">
-                <input 
-                type        ="text" 
-                className   ="form-control" 
-                id          ="jobClosedReason" 
-                placeholder ="Reason Closed Lost"
-                value       ={jobClosedReason}
-                onChange    ={(e)=>{onJobClosedReason(e)}}
-                required
-                />
+            <textarea
+            className   ="form-control" 
+            id          ="jobNote" 
+            placeholder ="Job note"
+            value       ={jobNote}
+            onChange    ={(e)=>{setJobNote(e.target.value)}}
+            />
             </div>
         </div>
+
+        {/* Job closed? What was the reason */}
+        {jobStatus == CLOSED ?
+            <div className="form-group row">
+                <label htmlFor="jobClosedReason" className="col-sm-2 col-form-label">Reason Closed Lost?</label>
+                <div className="col-sm-10">
+                    <input 
+                    type        ="text" 
+                    className   ="form-control" 
+                    id          ="jobClosedReason" 
+                    placeholder ="Reason Closed Lost"
+                    value       ={jobClosedReason}
+                    onChange    ={(e)=>{onJobClosedReason(e)}}
+                    required
+                    />
+                </div>
+            </div>
         : ""
         }
         <div className="form-group row">

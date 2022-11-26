@@ -96,6 +96,21 @@ export const JobDetails = () => {
           </div>
         </div>
 
+        <div className="row">
+          <div className="col">
+            Note
+          </div>
+          <div className="col-5" >
+            {job.jobNote}
+          </div>
+          <div className="col">
+            ""
+          </div>
+          <div className="col">
+            {/* {job.jobStatus} */}
+          </div>
+        </div>
+
         {job.jobStatus == CLOSED ?
           <div className="row">
             <div className="col">
