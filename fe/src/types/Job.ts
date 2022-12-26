@@ -1,3 +1,4 @@
+import { CompanyWOID } from "./Company";
 import { Employee, EmployeeShort } from "./Employee";
 
 interface Registered{
@@ -14,7 +15,8 @@ interface Won{
 }
 export type JobStatus = Registered |Pending | Closed | Won;
 
-export interface JobWEmployee extends Job, EmployeeShort{};
+export interface JobWCompanyWEmployee extends Job, EmployeeShort, CompanyWOID{}
+export interface JobWCompany extends Job, CompanyWOID{}
 
 export interface Job{
     jobID           : string;     
@@ -28,7 +30,5 @@ export interface Job{
     jobCloseDate?   : string | null;
     jobContract     : string;
     compID          : string;
-    compName        : string;
-    compStatus      : string;
     emplID          : string;
 }

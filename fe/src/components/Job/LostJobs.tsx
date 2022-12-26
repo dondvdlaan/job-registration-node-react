@@ -1,7 +1,7 @@
 import { useState }     from "react";
 import { useNavigate }  from "react-router-dom";
 import { useApi }       from "../../shared/API";
-import { Job }          from "../../types/Job";
+import { JobWCompany }  from "../../types/Job";
 import { Pagination }   from "../Pagination";
 
 /**
@@ -11,7 +11,7 @@ export const LostJobs = () => {
   
   // ******************** Constants and variables ********************
   const [page, setPage] = useState(1);
-  const [jobs, setJobs] = useApi<Job[]>("lostJobs");  
+  const [jobs, setJobs] = useApi<JobWCompany[]>("lostJobs");  
   const navigate        = useNavigate();
   const maxRowsPerPage  = 3;
   
@@ -22,7 +22,7 @@ export const LostJobs = () => {
   console.log("LostJobs ", jobs)
 
   // ******************** Event handling ********************
-  const onGoToDetail = (job: Job) =>{
+  const onGoToDetail = (job: JobWCompany) =>{
     navigate(`/details/${job.jobID}`)
   }
  

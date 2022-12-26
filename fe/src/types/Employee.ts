@@ -10,5 +10,5 @@ export interface Employee extends EmployeeShort {
     emplTel       : string;
     emplEmail     : string | undefined;
     compID        : string;
-    emplID        : string;
+    emplID        : number;
 }

@@ -1,7 +1,7 @@
 import {  useNavigate, useParams }  from 'react-router-dom';
 import {Method}                     from "axios";
 import { api, useApi }              from '../../shared/API';
-import { Job, JobWEmployee }                      from '../../types/Job';
+import {  JobWCompanyWEmployee }    from '../../types/Job';
 import { CLOSED } from '../../shared/Constants';
 
 /**
@@ -11,7 +11,7 @@ export const JobDetails = () => {
 
     // ************** Constants and Hooks **************
     const { jobID } = useParams<{jobID: string}>();
-    const job       = useApi<JobWEmployee>(`job/${jobID}`)[0];
+    const job       = useApi<JobWCompanyWEmployee>(`job/${jobID}`)[0];
     const navigate  = useNavigate();
     
     // Wait till job arrived
@@ -74,7 +74,7 @@ export const JobDetails = () => {
             {job.jobDetails}
           </div>
           <div className="col">
-            Employee
+            Contact
           </div>
           <div className="col">
             {job.emplFirstName}{" "}{job.emplLastName}

@@ -1,6 +1,6 @@
 import { useParams }    from "react-router-dom";
 import { useApi }       from "../../shared/API";
-import { Job, JobWEmployee }          from "../../types/Job"
+import { Job }          from "../../types/Job"
 import { JobForm }      from "./JobForm"
 
 
@@ -11,7 +11,7 @@ export const UpdateJob = () =>{
 
 // **************** Constants and Hooks **************** 
 const { jobID }                 = useParams<{jobID: string}>();
-const [job, setJob]             = useApi<JobWEmployee>(`job/${jobID}`);
+const [job, setJob]             = useApi<Job>(`job/${jobID}`);
 let jobCloseDate                = null;
 
 if(!job){return (<p>Loading Jobs...</p>)}
@@ -39,12 +39,7 @@ if(job.jobCloseDate){
         jobDate         = {job.jobDate}
         
         compID          = {job.compID}
-        compName        = {job.compName}
-        compStatus      = {job.compStatus}
-        
         emplID          = {job.emplID}
-        emplFirstName   = {job.emplFirstName}
-        emplLastName    = {job.emplLastName}
         
         isEdit          = {true}
         />

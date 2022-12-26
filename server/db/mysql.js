@@ -26,7 +26,7 @@ const init = ()=>{
 }
 
 /**
- * SQL statement with eventual values are sent to the DN for execution
+ * SQL statement with eventual values are sent to the DB for execution
  * 
  * @param sql     [string]          : sql statement
  * @param values  [array of string] : values for insert and update commands
@@ -36,6 +36,9 @@ const transmit = (sql, values = [])=>{
   if(!pool) init();
 
   return new Promise((res,rej) => {
+
+    console.log("sql ", sql);
+    console.log("values ", values);
 
     pool.query(sql, values, (err, results) => {
       if (err)  rej(err);

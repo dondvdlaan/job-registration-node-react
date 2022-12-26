@@ -12,24 +12,28 @@ module.exports = {
                   'AND jobs.compID = companies.compID',                  
                   
   allCompanies  : 'SELECT * FROM companies ' +
-                  // 'LEFT JOIN employees USING(compID)' +
                   'ORDER BY compName',
 
   partners      : 'SELECT * FROM companies ' +
                   'WHERE companies.compType = "Partner" ' +
                   'ORDER BY compName',
     
-  jobByID       : 'SELECT * FROM jobs '+
-                  'INNER JOIN companies USING(compID) '+
-                  'LEFT JOIN employees USING(compID) '+
-                  'WHERE jobID = ?',
+  jobByID       : 'SELECT * from jobs ' + 
+                  'JOIN companies USING(compID) ' + 
+                  'LEFT JOIN employees USING(emplID) ' + 
+                  'WHERE jobID = ? ',
 
-  companyByID   : 'SELECT * FROM companies left JOIN employees USING(compID) where compID = ?',
+  companyByID   : 'SELECT * FROM companies LEFT JOIN employees USING(compID) where compID = ?',
 
-  employeesCompanyByID   : 'SELECT * FROM employees ' +
-                           'WHERE compID = ? ' +
-                           'ORDER BY emplLastName',
+  employeeByID   : 'SELECT * FROM employees ' +
+                   'WHERE emplID = ? ',
 
+  // Treated as many-to-many relationship with companyEmployee as junction table
+  employeesCompanyByID   : 'SELECT e.emplID, e.emplFirstName, e.emplLastName ' +
+                           'FROM companyEmployee ' +
+                           'INNER JOIN employees e USING(emplID) ' +
+                           'WHERE compID = ? ' ,
+                           
   deleteCompany : 'DELETE c, j, e ' +
                   'FROM companies c ' +
                   'INNER JOIN jobs j USING(compID) ' +
@@ -48,11 +52,13 @@ module.exports = {
                   '(emplFirstName, emplLastName, emplTel, emplEmail,  compID)' +
                   'VALUES(?,?,?,?,?)',
 
-  updateCompany : 'UPDATE companies SET compName = ?, compType = ?, compNote = ?, compStatus = ? WHERE compID = ?',
+  updateCompany : 'UPDATE companies ' +
+                  'SET compName = ?, compType = ?, compNote = ?, compStatus = ? ' +
+                  'WHERE compID = ?',
 
-  updateJob     : 'UPDATE jobs SET' +
-                  ' jobTitle = ?, jobDescription	=	?, jobDetails	=	?, jobStatus = ?, jobNote = ?, jobContract = ?, jobClosedReason = ?, jobCloseDate = ?, compID = ?' +
-                  ' WHERE jobID = ?',
+  updateJob     : 'UPDATE jobs ' +
+                  'SET jobTitle = ?, jobDescription	=	?, jobDetails	=	?, jobStatus = ?, jobNote = ?, jobContract = ?, jobClosedReason = ?, jobCloseDate = ?, compID = ?, emplID = ? ' +
+                  'WHERE jobID = ?',
 
   updateEmployee: 'UPDATE employees SET emplFirstName = ?, emplLastName = ?, emplTel = ?, emplEmail = ? WHERE emplID = ?'
 }

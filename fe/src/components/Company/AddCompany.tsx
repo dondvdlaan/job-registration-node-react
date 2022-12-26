@@ -16,7 +16,7 @@ export const AddCompany = () =>
         compType        = ""
         compNote        = ""
         compStatus      = ""
-        emplID          = ""
+        emplID          = {-1}
         emplFirstName   = ""
         emplLastName    = ""
         emplTel         = ""

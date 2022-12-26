@@ -10,8 +10,11 @@ interface Registered{
 export type CompStatus  = Approached | Registered;  
 export type Corporation = Company & Employee;
 
-export interface Company{
+export interface Company extends CompanyWOID{
     compID        : string;
+    }
+
+export interface CompanyWOID {
     compName      : string;
     compType      : string;
     compNote      : string;

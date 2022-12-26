@@ -15,7 +15,8 @@ const job = (req, res) => {
                   req.body.compID,
                   req.body.emplID
                 ]
-    
+    console.log("req.body ", req.body)
+
     db.transmit(_sql, values)
     .then((status) =>res.send(status))
     .catch(err=> console.log(err))

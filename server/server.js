@@ -29,6 +29,7 @@ server.get('/lostJobs'              , getItems.all);
 
 server.get('/job/:id'               , getItems.jobByID);
 server.get('/company/:id'           , getItems.companyByID);
+server.get('/employee/:id'          , getItems.employeeByID);
 server.get('/employeesCompany/:id'  , getItems.employeesCompanyByID);
 
 server.post('/addJob'               , addItem.job);

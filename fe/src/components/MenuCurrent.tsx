@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Dropdown, Navbar } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 interface Props {
@@ -14,14 +14,15 @@ export default function Menu(props: Props): ReactElement {
 
   return (
     <>
-      <Navbar bg="bg-secondary" collapseOnSelect expand="sm">
-      <Navbar.Toggle aria-controls="navbar-toggle" />
-        <Navbar.Collapse id="navbar-toggle">
-        <div className="nav nav-pills" >   
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <ul className="nav nav-pills" >   
         
+        <li className="nav-item">
           <NavLink className="nav-link" to="/summary"     >Summary      </NavLink >  
+        </li>  
 
         <Dropdown>
+          <li className="nav-item dropdown">
             <Dropdown.Toggle variant="pills" id="dropdown-basic">
               Jobs
             </Dropdown.Toggle>
@@ -36,9 +37,11 @@ export default function Menu(props: Props): ReactElement {
                 <NavLink className="nav-link" to="/addJob"      >New Job      </NavLink >  
               </Dropdown.Item>
             </Dropdown.Menu>
+          </li>   
         </Dropdown>
         
         <Dropdown>
+          <li className="nav-item dropdown">
             <Dropdown.Toggle variant="pills" id="dropdown-basic">
               Companies
             </Dropdown.Toggle>
@@ -50,13 +53,18 @@ export default function Menu(props: Props): ReactElement {
                   <NavLink className="nav-link"  to="/addCompany"  >Add Company  </NavLink > 
               </Dropdown.Item>
             </Dropdown.Menu>
+          </li>   
         </Dropdown>
 
+        <li className="nav-item">
           <NavLink className="nav-link" to="/addEmployee" >Add Employee </NavLink > 
+        </li>
+        <li className="nav-item">
           <NavLink className="nav-link" to="/partners"    >Partners     </NavLink > 
-        </div>
-        </Navbar.Collapse>
-      </Navbar>
+        </li>
+
+        </ul>                                      
+      </nav>
 
       <div className="container">{props.children}</div>
     </>

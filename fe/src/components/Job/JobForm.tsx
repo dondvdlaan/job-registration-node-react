@@ -7,10 +7,10 @@ import { CLOSED, FIXED, FREELANCE, PENDING,
     REGISTERED, WON }       from "../../shared/Constants";
 import { Company }          from "../../types/Company";
 import { Employee } from "../../types/Employee";
-import { Job, JobWEmployee }              from "../../types/Job";
+import { Job }              from "../../types/Job";
 import css                  from "./JobForm.module.css";
 
-interface Props extends JobWEmployee{
+interface Props extends Job{
 
     isEdit: boolean,
 }
@@ -32,12 +32,9 @@ export const JobForm = (props: Props) =>{
     const [jobContract, setJobContract]         = useState(props.jobContract);
     
     const [compID, setCompID]                   = useState(props.compID);
-    const [compName, setCompName]               = useState(props.compName);
-    // const [compName, setCompName]               = useState(props.compName);
-    const [compStatus, setCompStatus]           = useState(props.compStatus);
+    const [emplID, setEmplID]                   = useState(props.emplID);
     
     const [companies, setCompanies]             = useApi<Company[]>("allCompanies");
-    const [emplID, setEmplID]                   = useState(props.emplID);
     const [employees, setEmployees]             = useApi2<Employee[] | undefined>(`employeesCompany/${compID}`,compID);
     
     const navigate                              = useNavigate();
@@ -45,8 +42,13 @@ export const JobForm = (props: Props) =>{
     if(!companies){
         return (<p>Loading Companies...</p>)    
       }
-    
-      console.log("compNam", compName)
+    if(!employees){
+        return (<p>Loading employees...</p>)    
+      }
+
+      console.log("emplID ", emplID)
+      console.log("compID ", compID)
+      console.log("employees ", employees)
 
 
     // Job object prepared for sending to DB
@@ -77,6 +79,8 @@ export const JobForm = (props: Props) =>{
         e.preventDefault();
         console.log('Form submitted');
 
+        console.log("job() ", job())
+
         const [method, path, jobData]:[Method, string, {}] = props.isEdit
         ? ["PUT", `updateJob`, job()]
         : ["POST", `addJob`, job()];
@@ -86,9 +90,16 @@ export const JobForm = (props: Props) =>{
 
     const onSetCompID = (e: React.ChangeEvent<HTMLSelectElement>) =>{
         e.preventDefault();
-        console.log("node", e.currentTarget.name)
+        console.log("onSetCompID e.target.value", e.target.value)
+        
         setCompID(e.target.value)
-        setCompName(e.currentTarget.name)
+    }
+
+    const onSetEmplID = (e: React.ChangeEvent<HTMLSelectElement>) =>{
+        e.preventDefault();
+        console.log("onSetEmplID e.target.value ", e.target.value)
+        
+        setEmplID(e.target.value)
     }
 
 return(
@@ -102,7 +113,6 @@ return(
             <label htmlFor="company" className="col-sm-2 col-form-label">Company</label>
             <div className="col-sm-10">
                 <select 
-                    name            ={compName}
                     className       ="form-control" 
                     id              ="company" 
                     placeholder     ="-----"
@@ -125,7 +135,7 @@ return(
         </div>
         
         {/* Employees listed for this company? */}
-        {employees ?
+        {employees?.length > 0 ?
         <div className="form-group row">
             <label htmlFor="employee" className="col-sm-2 col-form-label">Employee</label>
             <div className="col-sm-10">
@@ -135,12 +145,16 @@ return(
                     id              ="employee" 
                     placeholder     ="-----"
                     value           ={emplID} 
-                    onChange        ={(e)=>{setEmplID(e.target.value)}}
+                    onChange        ={(e)=>{onSetEmplID(e)}}
                 >
                         <option value="" disabled  >Select Employee</option>
 
                     {employees.map(employee =>
-                        <option key={employee.emplID} value={employee.emplID}>{employee.emplLastName}</option>
+                        <option key={employee.emplID} 
+                                value={employee.emplID}
+                        >
+                            {employee.emplFirstName}{" "}{employee.emplLastName}
+                        </option>
                     )}
                 </select>
             </div>
@@ -231,20 +245,7 @@ return(
             </div>
         </div>
 
-        <div className="form-group row">
-            <label htmlFor="jobNote" className="col-sm-2 col-form-label">Job Note</label>
-            <div className="col-sm-10">
-            <textarea
-            className   ="form-control" 
-            id          ="jobNote" 
-            placeholder ="Job note"
-            value       ={jobNote}
-            onChange    ={(e)=>{setJobNote(e.target.value)}}
-            />
-            </div>
-        </div>
-
-        {/* Job closed? What was the reason */}
+        {/* Job closed? What was the reason? */}
         {jobStatus == CLOSED ?
             <div className="form-group row">
                 <label htmlFor="jobClosedReason" className="col-sm-2 col-form-label">Reason Closed Lost?</label>
@@ -262,6 +263,20 @@ return(
             </div>
         : ""
         }
+
+        <div className="form-group row">
+                    <label htmlFor="jobNote" className="col-sm-2 col-form-label">Job Note</label>
+                    <div className="col-sm-10">
+                    <textarea
+                    className   ="form-control" 
+                    id          ="jobNote" 
+                    placeholder ="Job note"
+                    value       ={jobNote}
+                    onChange    ={(e)=>{setJobNote(e.target.value)}}
+                    />
+                    </div>
+                </div>
+
         <div className="form-group row">
             <div className="col-sm-10">
             <button type="submit" className="btn btn-primary">Finished</button>

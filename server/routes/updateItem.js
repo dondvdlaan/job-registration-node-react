@@ -15,6 +15,7 @@ const job = (req, res) => {
                   req.body.jobClosedReason,
                   req.body.jobCloseDate,
                   req.body.compID,
+                  req.body.emplID,
                   req.body.jobID
                 ]
 

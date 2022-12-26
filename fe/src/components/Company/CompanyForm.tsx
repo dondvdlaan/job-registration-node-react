@@ -157,7 +157,7 @@ export const CompanyForm = (props: Props) =>{
         </div>
 
         {/* // Check if Employee has been initiated to update data, else null */}
-        {(emplID !== "") && (emplID !== null) &&(
+        {(emplID !== -1) && (emplID !== null) &&(
         <>
         <div className="form-group row">
             <label htmlFor="emplFirstName" className="col-sm-3 col-form-label">First name</label>

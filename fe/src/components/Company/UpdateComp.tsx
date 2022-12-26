@@ -14,8 +14,10 @@ export const UpdateComp = () =>
 {
     // Constants and Hooks
     const { idComp }        = useParams<{idComp: string}>();
-    console.log("id ", idComp)
+    console.log("idComp ", idComp)
     const [corporation] = useApi<Corporation[]>(`company/${idComp}`);
+
+    console.log("corporation ", corporation)
 
     // Wait till data from DB arrived
     if(!corporation){return (<p>Loading Corporation...</p>)}
