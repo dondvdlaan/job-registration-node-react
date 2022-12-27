@@ -31,6 +31,10 @@ server.get('/job/:id'               , getItems.jobByID);
 server.get('/company/:id'           , getItems.companyByID);
 server.get('/employee/:id'          , getItems.employeeByID);
 server.get('/employeesCompany/:id'  , getItems.employeesCompanyByID);
+server.get('/jobsPerCompany/:id'    , getItems.jobsPerCompany);
+
+server.delete('/deleteCompany/:id'  , deleteItem.company);
+server.delete('/deleteJob/:id'      , deleteItem.job);
 
 server.post('/addJob'               , addItem.job);
 server.post('/addCompany'           , addItem.company);
@@ -40,8 +44,6 @@ server.put('/updateCompany'         , updateItem.company);
 server.put('/updateJob'             , updateItem.job);
 server.put('/updateEmployee'        , updateItem.employee);
 
-server.delete('/deleteCompany/:id'  , deleteItem.company);
-server.delete('/deleteJob/:id'      , deleteItem.job);
 
 // Testing Docker container
 server.get('/', (req, res) => res.send(`Good day! ${process.env.TEST_PARAM}`));

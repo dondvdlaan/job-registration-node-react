@@ -18,12 +18,14 @@ module.exports = {
                   'WHERE companies.compType = "Partner" ' +
                   'ORDER BY compName',
     
-  jobByID       : 'SELECT * from jobs ' + 
+  jobByID       : 'SELECT * FROM jobs ' + 
                   'JOIN companies USING(compID) ' + 
                   'LEFT JOIN employees USING(emplID) ' + 
                   'WHERE jobID = ? ',
 
-  companyByID   : 'SELECT * FROM companies LEFT JOIN employees USING(compID) where compID = ?',
+  companyByID   : 'SELECT * FROM companies ' + 
+                  'LEFT JOIN employees USING(compID) ' + 
+                  'WHERE compID = ?',
 
   employeeByID   : 'SELECT * FROM employees ' +
                    'WHERE emplID = ? ',
@@ -33,7 +35,15 @@ module.exports = {
                            'FROM companyEmployee ' +
                            'INNER JOIN employees e USING(emplID) ' +
                            'WHERE compID = ? ' ,
-                           
+
+  // Get jobs per company ID
+  jobsPerCompany  : 'SELECT * ' + 
+                    'FROM jobs ' + 
+                    'INNER JOIN companies USING(compID) ' +
+                    'WHERE compID = ? ' +
+                    'ORDER BY jobDate DESC ' ,
+
+
   deleteCompany : 'DELETE c, j, e ' +
                   'FROM companies c ' +
                   'INNER JOIN jobs j USING(compID) ' +
@@ -41,6 +51,7 @@ module.exports = {
                   'where compID = ?',
 
   deleteJob     : 'DELETE FROM jobs where jobID = ?',
+
 
   addJob        : 'INSERT INTO jobs' +
                   '(jobTitle, jobDescription, jobDetails, jobStatus, jobNote, jobContract, compID, emplID)' +
@@ -52,6 +63,7 @@ module.exports = {
                   '(emplFirstName, emplLastName, emplTel, emplEmail,  compID)' +
                   'VALUES(?,?,?,?,?)',
 
+                  
   updateCompany : 'UPDATE companies ' +
                   'SET compName = ?, compType = ?, compNote = ?, compStatus = ? ' +
                   'WHERE compID = ?',

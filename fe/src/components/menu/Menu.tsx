@@ -6,6 +6,9 @@ interface Props {
   children: ReactElement;
 }
 
+/**
+ * Menu Component is standard lay-out for all pages
+ */
 export default function Menu(props: Props): ReactElement {
 
 // *** Constants and Variables ***
@@ -17,16 +20,14 @@ export default function Menu(props: Props): ReactElement {
       <Navbar bg="bg-secondary" collapseOnSelect expand="sm">
       <Navbar.Toggle aria-controls="navbar-toggle" />
         <Navbar.Collapse id="navbar-toggle">
-        <div className="nav nav-pills" >   
-        
-          <NavLink className="nav-link" to="/summary"     >Summary      </NavLink >  
-
-        <Dropdown>
+          <div className="nav nav-pills" >   
+            <NavLink className="nav-link" to="/summary">Summary </NavLink >  
+          <Dropdown>
             <Dropdown.Toggle variant="pills" id="dropdown-basic">
-              Jobs
+                Jobs
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item >
+               <Dropdown.Item >
                 <NavLink className="nav-link" to="/activeJobs"  >Active Jobs  </NavLink >  
               </Dropdown.Item>
               <Dropdown.Item >
@@ -36,25 +37,26 @@ export default function Menu(props: Props): ReactElement {
                 <NavLink className="nav-link" to="/addJob"      >New Job      </NavLink >  
               </Dropdown.Item>
             </Dropdown.Menu>
-        </Dropdown>
-        
-        <Dropdown>
+          </Dropdown>
+          
+          <Dropdown>
             <Dropdown.Toggle variant="pills" id="dropdown-basic">
-              Companies
+                Companies
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item >
-                  <NavLink className="nav-link"  to="/companies"   >Companies    </NavLink >  
+                <NavLink className="nav-link"  to="/companies"   >Show Companies    </NavLink >  
               </Dropdown.Item>
               <Dropdown.Item >
-                  <NavLink className="nav-link"  to="/addCompany"  >Add Company  </NavLink > 
+                <NavLink className="nav-link"  to="/addCompany"  >Add Company  </NavLink > 
+              </Dropdown.Item>
+              <Dropdown.Item >
+                <NavLink className="nav-link" to="/addEmployee" >Add Employee </NavLink > 
               </Dropdown.Item>
             </Dropdown.Menu>
-        </Dropdown>
-
-          <NavLink className="nav-link" to="/addEmployee" >Add Employee </NavLink > 
-          <NavLink className="nav-link" to="/partners"    >Partners     </NavLink > 
-        </div>
+          </Dropdown>
+            <NavLink className="nav-link" to="/partners"    >Partners     </NavLink > 
+          </div>
         </Navbar.Collapse>
       </Navbar>
 

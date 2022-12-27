@@ -33,8 +33,8 @@ export const ActiveJobs = () => {
     
     return(
   <>
-      <br />
-      <table className="table table-hover">
+  <br />
+<table className="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>

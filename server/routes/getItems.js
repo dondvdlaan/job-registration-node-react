@@ -88,11 +88,27 @@ const employeeByID = (req, res) =>
      .catch(err=> console.log(err))
  };
 
+ /**
+ * GET Employees of Company by Company ID
+ */
+ const jobsPerCompany = (req, res) => 
+ {
+     const _sql    = sql.jobsPerCompany;
+     const values  = req.params.id;
+ 
+     db.transmit(_sql, values)
+     .then(comp=> {
+      console.log("comp:  ", comp)
+      res.send(comp)})
+     .catch(err=> console.log(err))
+ };
+
  
 module.exports = {
   all,
   jobByID,
   companyByID,
   employeeByID,
-  employeesCompanyByID
+  employeesCompanyByID,
+  jobsPerCompany
 }

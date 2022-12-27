@@ -1,25 +1,34 @@
-import { ChangeEvent, useRef, useState }     from "react";
+import { ChangeEvent, useState }     from "react";
 import Badge            from 'react-bootstrap/Badge'
-import { api }          from "../../shared/API";
-import { Corporation }  from "../../types/Company";
+import { api, ApiSimplified }          from "../../shared/API";
+import { Corporation as Company }  from "../../types/Company";
 import { Pagination }   from "../Pagination";
 import { Method }       from "axios";
 import { useNavigate }  from 'react-router-dom';
 import { useSortData }  from "../../shared/SortData";
 import { SearchOutline } from 'react-ionicons'
+import { JobsPerCompany } from "./JobsPerCompany";
+import { UserWorker } from "grommet-icons";
+import { Job } from "../../types/Job";
+import { Button, Card } from "react-bootstrap";
+
+// Export Components
+export const NoRowsFound = (props:{rows: string}) =>(
+   <Card className="text-center">
+    <Card.Body>No {props.rows} found</Card.Body>
+  </Card>
+)
 
 /**
-*  Main function to display all companies with employee(1 per company) from DB
+*  Component to display all companies
 *
-* @input  Corporation []  : Companies and Emplees into one array
-* @return tsx 
 */
-export const Companies = (props: {corporations: Corporation[]}) => {
+export const Companies = (props: {corporations: Company[]}) => {
 
   // *************** Constants and variables ***************
   const [page, setPage]                   = useState(1);
   const navigate                          = useNavigate();
-  const [items, setItems]                 = useState<Corporation[]>(props.corporations);
+  const [items, setItems]                 = useState<Company[]>(props.corporations);
 
   const {sortedItems, onSort, sortConfig} = useSortData(items);
   const [itemSearched, setItemSearched]   = useState("");
@@ -30,7 +39,7 @@ export const Companies = (props: {corporations: Corporation[]}) => {
   const maxRowsPerPage      = 10;
   const minNrOfChararcters  = 0;
 
-  /// *** Components ***
+  // *** Components ***
   const SearchCompany = () =>(
     <div className="panel-block">
     <p className="control has-icons-right">
@@ -40,6 +49,7 @@ export const Companies = (props: {corporations: Corporation[]}) => {
         type="text"
         className="input"
         autoFocus
+
       />
       <span className="searchSymbol">
         {/* <SearchOutline
@@ -54,9 +64,7 @@ export const Companies = (props: {corporations: Corporation[]}) => {
   </div>
   )
 
-  const NoRowsFound = () =>(
-    <p>No Rows found</p>
-  )
+
 
   // *************** Event handling ***************
   /**
@@ -126,6 +134,15 @@ export const Companies = (props: {corporations: Corporation[]}) => {
     setDisplaySearch(!displaySearch)
     }
 
+  /**
+   * Show jobs per company
+   */  
+  const onJobsPerCompany = (compID: string) => {
+
+   navigate(`/jobsPerCompany/${compID}`);
+  }
+
+
   // *************** Functions ***************
   /**
    * Function to check which sorting direction is chosen and which className to use
@@ -156,6 +173,7 @@ export const Companies = (props: {corporations: Corporation[]}) => {
                 onClick={() => onSort('compName')} >
                   Company
               </button>
+              {" "}
               <SearchOutline
                 color={'#2f5b83'} 
                 title={""}
@@ -173,39 +191,33 @@ export const Companies = (props: {corporations: Corporation[]}) => {
               </button>
             </th>
             <th scope="col">
-              <button 
-              type="button" 
-              className={getClassNamesFor("compStatus")?`button button1 ${getClassNamesFor("compStatus")}`:"button button1" } 
-              onClick={() => onSort('compStatus')} >
-                Status
-              </button>
+                Jobs per Company
             </th>
-            <th scope="col">Staff</th>
-            <th scope="col">Tel</th>
 
           </tr>
         </thead>
         <tbody>
           {rowsOnThisPage.length == 0 ? 
-            <NoRowsFound />
+            <NoRowsFound rows={"companies"} />
           :
           <>
-            {rowsOnThisPage.map((row: Corporation, index: number) =>
-              <tr key={row.compID}>
+            {rowsOnThisPage.map((company: Company, index: number) =>
+              <tr key={company.compID}>
                 <th scope="row">
 
                   {/* // Numbering of rows */}
                   {(index + 1) + (page - 1) * maxRowsPerPage }{' '}
 
                   {/* Badges Delete and Update */}
-                  <Badge onClick={compID => onDelete(row.compID)} pill bg="warning">Del</Badge>
-                  <Badge onClick={compID => onUpdate(row.compID)} pill bg="secondary">Upd</Badge>{' '}
+                  <Badge onClick={compID => onDelete(company.compID)} pill bg="warning">Del</Badge>
+                  <Badge onClick={compID => onUpdate(company.compID)} pill bg="secondary">Upd</Badge>{' '}
                 </th>
-                <td>{row.compName} </td>
-                <td>{row.compType} </td>
-                <td>{row.compStatus} </td>
-                <td>{row.emplFirstName} {row.emplLastName} </td>
-                <td>{row.emplTel}</td>
+                <td>{company.compName} </td>
+                <td>{company.compType} </td>
+                <td><Button onClick={() => onJobsPerCompany(company.compID)}>
+                      <UserWorker /> 
+                    </Button>
+                </td>
               </tr>
             )}
           </>
