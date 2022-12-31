@@ -1,16 +1,15 @@
 import { ChangeEvent, useState }     from "react";
 import Badge            from 'react-bootstrap/Badge'
-import { api, ApiSimplified }          from "../../shared/API";
+import { api }          from "../../shared/API";
 import { Corporation as Company }  from "../../types/Company";
 import { Pagination }   from "../Pagination";
 import { Method }       from "axios";
 import { useNavigate }  from 'react-router-dom';
 import { useSortData }  from "../../shared/SortData";
 import { SearchOutline } from 'react-ionicons'
-import { JobsPerCompany } from "./JobsPerCompany";
 import { UserWorker } from "grommet-icons";
-import { Job } from "../../types/Job";
 import { Button, Card } from "react-bootstrap";
+import './Companies.css'
 
 // Export Components
 export const NoRowsFound = (props:{rows: string}) =>(
@@ -49,22 +48,10 @@ export const Companies = (props: {corporations: Company[]}) => {
         type="text"
         className="input"
         autoFocus
-
       />
-      <span className="searchSymbol">
-        {/* <SearchOutline
-            color={'#2f5b83'} 
-            title={""}
-            height="25px"
-            width="25px"
-        /> */}
-            <i className="searchSymbol" />
-      </span>
     </p>
   </div>
   )
-
-
 
   // *************** Event handling ***************
   /**
@@ -191,7 +178,10 @@ export const Companies = (props: {corporations: Company[]}) => {
               </button>
             </th>
             <th scope="col">
+              <div className="headerText">
                 Jobs per Company
+              </div>
+                
             </th>
 
           </tr>
@@ -214,7 +204,10 @@ export const Companies = (props: {corporations: Company[]}) => {
                 </th>
                 <td>{company.compName} </td>
                 <td>{company.compType} </td>
-                <td><Button onClick={() => onJobsPerCompany(company.compID)}>
+                <td><Button 
+                    variant="outline-info"
+                    size="sm"
+                    onClick={() => onJobsPerCompany(company.compID)}>
                       <UserWorker /> 
                     </Button>
                 </td>

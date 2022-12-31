@@ -9,12 +9,12 @@ import { APPROACHED,
         PARTNER, 
         RECRUITER, 
         REGISTERED }        from "../../shared/Constants";
-import { Corporation }      from "../../types/Company";
+import { Company }      from "../../types/Company";
 import css                  from "./CompanyForm.module.css";
 import {Method}             from "axios";
 
 
-interface Props extends Corporation {
+interface Props extends Company {
     isEdit  : boolean
     
 }
@@ -32,11 +32,6 @@ export const CompanyForm = (props: Props) =>{
     const [compType, setCompType]           = useState(props.compType);
     const [compNote, setCompNote]           = useState(props.compNote);
     const [compStatus, setCompStatus]       = useState(props.compStatus);
-    const [emplID]                          = useState(props.emplID);
-    const [emplFirstName, setEmplFirstName] = useState(props.emplFirstName);
-    const [emplLastName, setEmplLastName]   = useState(props.emplLastName);
-    const [emplTel, setEmplTel]             = useState(props.emplTel);
-    const [emplEmail, setEmplEmail]         = useState(props.emplEmail);
 
     const navigate = useNavigate();
 
@@ -49,34 +44,19 @@ export const CompanyForm = (props: Props) =>{
         compStatus,
     })
 
-    const employee = () =>({
-        emplID,
-        emplFirstName,
-        emplLastName,
-        emplTel,
-        emplEmail,
-    })
-    
     // *********** Event handling ***********
     const onFormSubmit = (e: React.FormEvent) =>{
         e.preventDefault();
         console.log('Form submitted');
 
-        // Send first Company request, then Employee request to DB
+        // Send Company request to DB
         const [method, path]:[Method, string] = props.isEdit
         ? ["PUT", `updateCompany`]
         : ["POST", `addCompany`];
 
         ApiSimplified(method, path, company())
-        .then(res =>
-        {
-          // If reply is ok, add Employee is present, continue  
-          if((res.status === 200) && emplID){
-
-            api("PUT","updateEmployee", ()=>navigate('/companies'), employee())
-          } 
-          else navigate('/companies');
-        })
+        .then(()=> navigate('/companies'))
+        .catch(err=> console.log(err))
     }
 
     return(
@@ -155,68 +135,6 @@ export const CompanyForm = (props: Props) =>{
             </select>
             </div>
         </div>
-
-        {/* // Check if Employee has been initiated to update data, else null */}
-        {(emplID !== -1) && (emplID !== null) &&(
-        <>
-        <div className="form-group row">
-            <label htmlFor="emplFirstName" className="col-sm-3 col-form-label">First name</label>
-            <div className="col-sm-9">
-            <input 
-            type        ="text" 
-            className   ="form-control" 
-            id          ="emplFirstName" 
-            placeholder ="First name"
-            value       ={emplFirstName}
-            onChange    ={(e)=>{setEmplFirstName(e.target.value)}}
-            />
-            </div>
-        </div>
-
-        <div className="form-group row">
-            <label htmlFor="emplLastName" className="col-sm-3 col-form-label">Last Name</label>
-            <div className="col-sm-9">
-            <input 
-            type        ="text" 
-            className   ="form-control" 
-            id          ="emplLastName" 
-            placeholder ="Last name"
-            value       ={emplLastName}
-            onChange    ={(e)=>{setEmplLastName(e.target.value)}}
-            />
-            </div>
-        </div>
-        
-        <div className="form-group row">
-            <label htmlFor="emplTel" className="col-sm-3 col-form-label">Tel nr.</label>
-            <div className="col-sm-9">
-            <input 
-            type        ="text" 
-            className   ="form-control" 
-            id          ="emplTel" 
-            placeholder ="Tel nr."
-            value       ={emplTel}
-            onChange    ={(e)=>{setEmplTel(e.target.value)}}
-            />
-            </div>
-        </div>
-
-        <div className="form-group row">
-            <label htmlFor="emplEmail" className="col-sm-3 col-form-label">Email</label>
-            <div className="col-sm-9">
-            <input 
-            type        ="text" 
-            className   ="form-control" 
-            id          ="emplEmail" 
-            placeholder ="Email"
-            value       ={emplEmail}
-            onChange    ={(e)=>{setEmplEmail(e.target.value)}}
-            />
-            </div>
-        </div>
-        </>
-        )}
-        {/* // End check Employee initiated */}
 
         <div className="form-group row">
             <div className="col-sm-10">

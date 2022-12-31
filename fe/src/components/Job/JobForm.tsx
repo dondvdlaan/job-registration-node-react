@@ -42,9 +42,9 @@ export const JobForm = (props: Props) =>{
     if(!companies){
         return (<p>Loading Companies...</p>)    
       }
-    if(!employees){
-        return (<p>Loading employees...</p>)    
-      }
+    // if(!employees){
+    //     return (<p>Loading employees...</p>)    
+    //   }
 
       console.log("emplID ", emplID)
       console.log("compID ", compID)
@@ -63,7 +63,8 @@ export const JobForm = (props: Props) =>{
       jobCloseDate,
       jobContract,
       compID,
-      emplID
+      // Write undefined in to DB, instead of empty string
+      emplID: emplID === "" ? undefined : emplID
     })
   
 
@@ -135,7 +136,7 @@ return(
         </div>
         
         {/* Employees listed for this company? */}
-        {employees?.length > 0 ?
+        {employees != undefined && employees?.length > 0 ?
         <div className="form-group row">
             <label htmlFor="employee" className="col-sm-2 col-form-label">Employee</label>
             <div className="col-sm-10">
@@ -245,7 +246,7 @@ return(
             </div>
         </div>
 
-        {/* Job closed? What was the reason? */}
+        {/* Job closed lost? What was the reason? */}
         {jobStatus == CLOSED ?
             <div className="form-group row">
                 <label htmlFor="jobClosedReason" className="col-sm-2 col-form-label">Reason Closed Lost?</label>

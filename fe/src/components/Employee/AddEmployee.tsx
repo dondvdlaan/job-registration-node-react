@@ -6,7 +6,7 @@ export const AddEmployee = () =>{
 
     return(
         <EmployeeForm
-        emplID          = {-1}
+        emplID          = ""
         emplFirstName   = ""
         emplLastName    = ""
         emplTel         = ""

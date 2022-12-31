@@ -11,9 +11,6 @@ interface Props {
  */
 export default function Menu(props: Props): ReactElement {
 
-// *** Constants and Variables ***
-// const navLinkClassname = ({ isActive }: { isActive: boolean }) =>
-//     `navbar-item ${isActive ? "is-active" : ""}`;
 
   return (
     <>

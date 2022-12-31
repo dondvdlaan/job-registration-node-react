@@ -30,5 +30,5 @@ export interface Job{
     jobCloseDate?   : string | null;
     jobContract     : string;
     compID          : string;
-    emplID          : string;
+    emplID          : string | undefined;
 }

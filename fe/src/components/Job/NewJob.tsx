@@ -14,7 +14,7 @@ export const NewJob = () =>{
         jobContract=""
         jobCloseDate={null}
         compID=""
-        emplID="0"
+        emplID=""
         
         isEdit= {false}
         />

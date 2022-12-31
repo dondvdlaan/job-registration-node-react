@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
 import './index.css';
+// Global fonts
+import "./fonts/Roboto-Italic.ttf"
+import "./fonts/Roboto-Light.ttf"
+import "./fonts/Roboto-Regular.ttf"
 
 import reportWebVitals from './reportWebVitals';
 

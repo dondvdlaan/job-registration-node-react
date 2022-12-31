@@ -16,11 +16,6 @@ export const AddCompany = () =>
         compType        = ""
         compNote        = ""
         compStatus      = ""
-        emplID          = {-1}
-        emplFirstName   = ""
-        emplLastName    = ""
-        emplTel         = ""
-        emplEmail       = ""
         isEdit          = {false}
         />
     )

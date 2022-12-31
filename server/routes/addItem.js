@@ -1,3 +1,4 @@
+const { transmitAddEmployee } = require('../db');
 const db    = require('../db')
 const sql   = require('../db/sqlStatement')
 
@@ -41,16 +42,25 @@ const employee = (req, res) => {
 
   // Constants and variables
   let _sql   = sql.addEmployee;
+  let _sql2  = sql.addEmployee2;
   let values =[ req.body.emplFirstName,
                 req.body.emplLastName,
                 req.body.emplTel,
                 req.body.emplEmail,
-                req.body.compID,
               ]
-        
-  db.transmit(_sql, values)
-  .then((status) =>res.send(status))
-  .catch(err=> console.log(err))
+  
+  console.log("req.body.compID ", req.body.compID)
+
+  transmitAddEmployee(_sql, values, _sql2, req.body.compID )
+  .then((status) =>{
+    console.log("status: ", status)
+    res.send(status)
+  })
+  .catch(err=> console.log("transmitAddEmployee: ", err))
+  
+  // db.transmit(_sql, values)
+  // .then((status) =>res.send(status))
+  // .catch(err=> console.log(err))
 };
 
 

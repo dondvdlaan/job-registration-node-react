@@ -12,7 +12,7 @@ module.exports = {
                   'AND jobs.compID = companies.compID',                  
                   
   allCompanies  : 'SELECT * FROM companies ' +
-                  'ORDER BY compName',
+                  'ORDER BY compName ' ,
 
   partners      : 'SELECT * FROM companies ' +
                   'WHERE companies.compType = "Partner" ' +
@@ -59,11 +59,16 @@ module.exports = {
 
   addCompany    : 'INSERT INTO companies(	compName, compType, compNote, compStatus) VALUES(?,?,?,?)',
 
-  addEmployee   : 'INSERT INTO employees' +
-                  '(emplFirstName, emplLastName, emplTel, emplEmail,  compID)' +
-                  'VALUES(?,?,?,?,?)',
+  // 2 tables have to be updates, here table employees
+  addEmployee   : 'INSERT INTO employees ' +
+                  '(emplFirstName, emplLastName, emplTel, emplEmail) ' +
+                  'VALUES(?,?,?,?) ' ,
 
-                  
+  // 2 tables have to be updates, here junction table companyEmployee                
+  addEmployee2  : 'INSERT INTO companyEmployee ' +
+                  '(emplID, compID) ' +
+                  'VALUES(?,?) ' ,                
+
   updateCompany : 'UPDATE companies ' +
                   'SET compName = ?, compType = ?, compNote = ?, compStatus = ? ' +
                   'WHERE compID = ?',

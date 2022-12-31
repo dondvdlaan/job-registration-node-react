@@ -13,6 +13,8 @@ export const UpdateJob = () =>{
 const { jobID }                 = useParams<{jobID: string}>();
 const [job, setJob]             = useApi<Job>(`job/${jobID}`);
 let jobCloseDate                = null;
+// Form shows only 'Select Employee', when emplID = empty string
+let jobEmplID                   = "";
 
 if(!job){return (<p>Loading Jobs...</p>)}
 
@@ -24,6 +26,9 @@ if(job.jobCloseDate){
     
     console.log("Update Job jobCloseDate", jobCloseDate)
 }
+
+// If emplID is not null, pass the current emplID, else default value is empty string
+if (job.emplID != undefined) jobEmplID = job.emplID;
 
     return(
         <JobForm
@@ -39,7 +44,7 @@ if(job.jobCloseDate){
         jobDate         = {job.jobDate}
         
         compID          = {job.compID}
-        emplID          = {job.emplID}
+        emplID          = {jobEmplID}
         
         isEdit          = {true}
         />

@@ -1,10 +1,10 @@
 import { useParams }    from "react-router-dom";
 import { useApi }       from "../../shared/API";
-import { Corporation }  from "../../types/Company";
+import { Company }      from "../../types/Company";
 import { CompanyForm }  from "./CompanyForm";
 
 /* 
-*   Vomponent to start CompayForm to update data of individual company
+*   Component to start CompanyForm to update data of individual company
 *
 *   @input  none
 *   @return CompanyForm tsx :   CompanyForm with parameters initiated with
@@ -13,28 +13,22 @@ import { CompanyForm }  from "./CompanyForm";
 export const UpdateComp = () =>
 {
     // Constants and Hooks
-    const { idComp }        = useParams<{idComp: string}>();
-    console.log("idComp ", idComp)
-    const [corporation] = useApi<Corporation[]>(`company/${idComp}`);
+    const { idComp }    = useParams<{idComp: string}>();
+    const [company]     = useApi<Company>(`company/${idComp}`);
 
-    console.log("corporation ", corporation)
+    console.log("company ", company)
 
     // Wait till data from DB arrived
-    if(!corporation){return (<p>Loading Corporation...</p>)}
+    if(!company){return (<p>Loading company...</p>)}
 
 
         return(
             <CompanyForm
-            compID         = {corporation[0].compID}
-            compName       = {corporation[0].compName}
-            compType       = {corporation[0].compType}
-            compNote       = {corporation[0].compNote}
-            compStatus     = {corporation[0].compStatus}
-            emplID         = {corporation[0].emplID}
-            emplFirstName  = {corporation[0].emplFirstName}
-            emplLastName   = {corporation[0].emplLastName}
-            emplTel        = {corporation[0].emplTel}
-            emplEmail      = {corporation[0].emplEmail}
+            compID         = {company.compID}
+            compName       = {company.compName}
+            compType       = {company.compType}
+            compNote       = {company.compNote}
+            compStatus     = {company.compStatus}
             isEdit         = {true}
             />
         )
