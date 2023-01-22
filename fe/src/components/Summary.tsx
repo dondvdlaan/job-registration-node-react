@@ -22,27 +22,41 @@ export const Summary= () =>{
     return (<p>Loading...</p>)
   }
 
+  
+  // *** Functions ***
+  /**
+   * Filter out the jobs with fixed contract
+  */
+ const initialValue = 0;
+ 
+ const numberFixedJobs = jobs.reduce(
+   (accumulator, job) => accumulator + (job.jobContract == "Fixed"? 1 : 0),
+   initialValue
+   );
+   
 return(
   <>
     <br />
     <h3>Summary:</h3  > 
     <div className="container">
       <div className="row text-center bg-light">
+        <div className="col" /> 
         <div className="col">
-        </div>
-        <div className="col-2">
           Total Applied
         </div>
-        <div className="col-2">
+        <div className="col">
           Registered
         </div>
-        <div className="col-2">
+        <div className="col">
+          Fixed Contract
+        </div>
+        <div className="col">
           Pending
         </div>
-        <div className="col-2">
+        <div className="col">
           Closed Lost
         </div>
-        <div className="col-2">
+        <div className="col">
           Won
         </div>
       </div>
@@ -50,19 +64,22 @@ return(
         <div className="col-2 bg-light">
           Jobs
         </div>
-        <div className="col-2 text-center     ">
+        <div className="col">
             {jobs.length} 
         </div>
-        <div className="col-2">
+        <div className="col">
           {jobs.filter(job => job.jobStatus === REGISTERED).length}
         </div>
-        <div className="col-2">
+        <div className="col">
+          {numberFixedJobs}
+        </div>
+        <div className="col">
           {jobs.filter(job => job.jobStatus === PENDING).length}
         </div>
-        <div className="col-2">
+        <div className="col">
           {jobs.filter(job => job.jobStatus === CLOSED).length}
         </div>
-        <div className="col-2">
+        <div className="col">
           {jobs.filter(job => job.jobStatus === WON).length}
         </div>
       </div>

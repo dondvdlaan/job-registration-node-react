@@ -27,9 +27,24 @@ CREATE TABLE `companies` (
   `compName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `compType` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `compStatus` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `compNote` text COLLATE utf8mb4_unicode_ci,
+  `compNote` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`compID`)
-) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `companyEmployee`
+--
+
+DROP TABLE IF EXISTS `companyEmployee`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `companyEmployee` (
+  `compEmplID` int NOT NULL AUTO_INCREMENT,
+  `emplID` int NOT NULL,
+  `compID` int NOT NULL,
+  PRIMARY KEY (`compEmplID`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,10 +60,9 @@ CREATE TABLE `employees` (
   `emplLastName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `emplTel` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `emplEmail` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `compID` int DEFAULT NULL,
   PRIMARY KEY (`emplID`),
   UNIQUE KEY `emplEmail` (`emplEmail`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,11 +80,34 @@ CREATE TABLE `jobs` (
   `jobDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `jobStatus` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `compID` int NOT NULL,
-  `jobClosedReason` text COLLATE utf8mb4_unicode_ci,
+  `jobClosedReason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `jobCloseDate` timestamp NULL DEFAULT NULL,
+  `jobContract` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `emplID` int DEFAULT NULL,
+  `jobNote` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`jobID`),
   KEY `compID` (`compID`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `jobs_backup`
+--
+
+DROP TABLE IF EXISTS `jobs_backup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jobs_backup` (
+  `jobID` int NOT NULL DEFAULT '0',
+  `jobTitle` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jobDescription` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `jobDetails` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `jobDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `jobStatus` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `compID` int NOT NULL,
+  `jobClosedReason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `jobCloseDate` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -82,4 +119,4 @@ CREATE TABLE `jobs` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-07 20:26:55
+-- Dump completed on 2023-01-22 20:17:44

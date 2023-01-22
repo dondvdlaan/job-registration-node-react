@@ -1,5 +1,5 @@
 // *************** Imports *****************
-const cors 	        = require('cors');
+const cors 	    = require('cors');
 const express 	    = require('express');
 require('dotenv').config({ path: './../.env' });
 const colors        = require('colors');
