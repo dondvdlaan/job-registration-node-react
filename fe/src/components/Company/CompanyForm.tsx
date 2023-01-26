@@ -5,6 +5,8 @@ import { api,
 import { APPROACHED, 
         CONSULTANT, 
         ENDUSER, 
+        FOOD_AND_BEVERAGE, 
+        INSURANCE, 
         IT_OEM, 
         PARTNER, 
         RECRUITER, 
@@ -34,6 +36,9 @@ export const CompanyForm = (props: Props) =>{
     const [compStatus, setCompStatus]       = useState(props.compStatus);
 
     const navigate = useNavigate();
+
+    console.log({props})
+    console.log({compName})
 
     // Prepare payloads for API
     const company = () =>({
@@ -101,6 +106,8 @@ export const CompanyForm = (props: Props) =>{
                     <option value={ENDUSER}>{ENDUSER}</option>
                     <option value={CONSULTANT}>{CONSULTANT}</option>
                     <option value={IT_OEM}>{IT_OEM}</option>
+                    <option value={INSURANCE}>{INSURANCE}</option>
+                    <option value={FOOD_AND_BEVERAGE}>{FOOD_AND_BEVERAGE}</option>
                 </select>
             </div>
         </div>

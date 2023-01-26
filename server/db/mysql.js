@@ -48,7 +48,7 @@ const transmit = (sql, values = []) => {
 }
 
 /**
- * Add Employee spans 2 tables, so we need a Transaction / Commit
+ * Add Employee spans 2 tables(employees, companyEmployee), so we need a Transaction / Commit
  */
 const transmitAddEmployee = (sql, values = [], sql2, compID) => {
 

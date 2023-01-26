@@ -1,15 +1,17 @@
 module.exports = {
   allJobs       : 'SELECT * FROM jobs ' +
-                  'JOIN companies USING(compID)' +
-                  'ORDER BY jobTitle',
+                  'JOIN companies USING(compID) ' +
+                  'ORDER BY jobDate ASC',
 
   activeJobs    : 'SELECT * FROM jobs, companies ' +
                   'WHERE jobs.jobStatus != "Closed Lost" ' +
-                  'AND jobs.compID = companies.compID',
-    
+                  'AND jobs.compID = companies.compID ' +
+                  'ORDER BY jobs.jobDate DESC' ,
+
   lostJobs      : 'SELECT * FROM jobs, companies ' +
                   'WHERE jobs.jobStatus = "Closed Lost" ' +
-                  'AND jobs.compID = companies.compID',                  
+                  'AND jobs.compID = companies.compID '+
+                  'ORDER BY jobs.jobDate DESC' ,                  
                   
   allCompanies  : 'SELECT * FROM companies ' +
                   'ORDER BY compName ' ,
@@ -24,7 +26,6 @@ module.exports = {
                   'WHERE jobID = ? ',
 
   companyByID   : 'SELECT * FROM companies ' + 
-                  'LEFT JOIN employees USING(compID) ' + 
                   'WHERE compID = ?',
 
   employeeByID   : 'SELECT * FROM employees ' +

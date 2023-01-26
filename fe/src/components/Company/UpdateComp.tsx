@@ -13,22 +13,23 @@ import { CompanyForm }  from "./CompanyForm";
 export const UpdateComp = () =>
 {
     // Constants and Hooks
-    const { idComp }    = useParams<{idComp: string}>();
-    const [company]     = useApi<Company>(`company/${idComp}`);
+    const { idComp }            = useParams<{idComp: string}>();
+    const [company, setCompany] = useApi<Company[]>(`company/${idComp}`);
 
+    console.log("idComp ", idComp)
     console.log("company ", company)
-
+    
     // Wait till data from DB arrived
     if(!company){return (<p>Loading company...</p>)}
-
+    
 
         return(
             <CompanyForm
-            compID         = {company.compID}
-            compName       = {company.compName}
-            compType       = {company.compType}
-            compNote       = {company.compNote}
-            compStatus     = {company.compStatus}
+            compID         = {company[0].compID}
+            compName       = {company[0].compName}
+            compType       = {company[0].compType}
+            compNote       = {company[0].compNote}
+            compStatus     = {company[0].compStatus}
             isEdit         = {true}
             />
         )

@@ -58,9 +58,6 @@ const employee = (req, res) => {
   })
   .catch(err=> console.log("transmitAddEmployee: ", err))
   
-  // db.transmit(_sql, values)
-  // .then((status) =>res.send(status))
-  // .catch(err=> console.log(err))
 };
 
 
