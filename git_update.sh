@@ -10,7 +10,7 @@ chmod u+x git_update.sh
 
 git add .
 git commit -m "Automatic back-up Mysql"
-git push job-registration-node-react
+ git push --set-upstream job-registration-node-react master
 
 pwd
 echo $$
