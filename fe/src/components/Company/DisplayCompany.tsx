@@ -4,7 +4,7 @@ import { Companies } from "./Companies"
 
 
 /*
-*  Main function to call companies with employee(1 per company) from DB.
+*  Main function to list companies from DB.
 *
 * @return tsx : Call component Companies
 */

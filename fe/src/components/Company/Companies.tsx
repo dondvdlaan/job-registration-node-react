@@ -13,6 +13,7 @@ import './Companies.css'
 
 // Export Components
 export const NoRowsFound = (props:{rows: string}) =>(
+  
    <Card className="text-center">
     <Card.Body>No {props.rows} found</Card.Body>
   </Card>

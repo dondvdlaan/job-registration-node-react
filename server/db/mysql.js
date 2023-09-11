@@ -11,8 +11,8 @@ let pool;
 const init = () => {
 
   pool = mysql.createPool({
-    host: process.env.MYSQL_HOST_IP,
-    user: process.env.MYSQL_USER,
+    host:     process.env.MYSQL_HOST_IP,
+    user:     process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
   });
@@ -26,13 +26,14 @@ const init = () => {
 }
 
 /**
- * SQL statement with eventual values are sent to the DB for execution
+ * SQL statement for 1 table with eventual values are sent to the DB for execution
  * 
  * @param sql     [string]          : sql statement
  * @param values  [array of string] : values for insert and update commands
  */
 const transmit = (sql, values = []) => {
 
+  // Initialise DB, if needed
   if (!pool) init();
 
   return new Promise((res, rej) => {
@@ -52,7 +53,7 @@ const transmit = (sql, values = []) => {
  */
 const transmitAddEmployee = (sql, values = [], sql2, compID) => {
 
-  // Initialise pool
+  // Initialise DB, if needed
   if (!pool) init();
 
   // Start transferring data
@@ -87,8 +88,8 @@ const transmitAddEmployee = (sql, values = [], sql2, compID) => {
             console.log("res ID ",res[0]['LAST_INSERT_ID()']);
             const emplID = res[0]['LAST_INSERT_ID()'];
             
-            console.log("emplID ",emplID);
-            console.log(" compID ",compID);
+            console.log("emplID ", emplID);
+            console.log(" compID ", compID);
 
             // Update junction table companyEmployee  
             return pool.query(sql2,[emplID, compID], (err, results) => {

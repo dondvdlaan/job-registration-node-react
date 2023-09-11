@@ -3,12 +3,14 @@ version: "3.4"
 x-common-variables: &common-variables
   MYSQL_USER            : pato
   MYSQL_PASSWORD        : duck
+  MYSQL_ROOT_PASSWORD   : root
   MYSQL_DATABASE        : job
   REACT_APP_SERVER_PORT : 8000
 
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:latest
+    container_name: mysql
     env_file: ./.env
     environment:
       # <<: *common-variables
@@ -19,10 +21,11 @@ services:
       MYSQL_DATABASE        : $MYSQL_DATABASE
       REACT_APP_SERVER_PORT : $REACT_APP_SERVER_PORT
     ports:
-      - 3306:3306
+      - 3307:3306
     restart: unless-stopped
     volumes:
-      - ./sqldb/jobStructureDB.sql:/docker-entrypoint-initdb.d/sample.sql
+      - ./sqldb/backup_job.sql:/docker-entrypoint-initdb.d/sample.sql
+  
   phpmyadmin:
     depends_on:
       - mysql
@@ -32,10 +35,12 @@ services:
     links:
       - mysql:mysql
     ports:
-      - 8080:80
+      - 8081:80
     restart: always
+  
   server:
     build: ./server
+    container_name: server
     depends_on:
       - mysql
     expose:
@@ -50,8 +55,10 @@ services:
     links:
       - mysql
     command: npm start
+  
   fe:
     build: ./fe
+    container_name: fe
     environment:
       <<: *common-variables
       NODE_PATH: src

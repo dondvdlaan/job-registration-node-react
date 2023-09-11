@@ -47,8 +47,8 @@ module.exports = {
 
   deleteCompany : 'DELETE c, j, e ' +
                   'FROM companies c ' +
-                  'INNER JOIN jobs j USING(compID) ' +
-                  'INNER JOIN employees e USING(compID) ' +
+                  'LEFT JOIN jobs j USING(compID) ' +
+                  'LEFT JOIN companyEmployee e USING(compID) ' +
                   'where compID = ?',
 
   deleteJob     : 'DELETE FROM jobs where jobID = ?',

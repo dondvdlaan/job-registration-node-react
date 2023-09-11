@@ -121,7 +121,7 @@ export const EmployeeForm = (props: Props) =>{
             value               ={emplLastName}
             onChange            ={(e)=>{setEmplLastName(e.target.value)}}
             required
-            minLength={3}
+            minLength={2}
             />
             </div>
         </div>

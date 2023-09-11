@@ -52,5 +52,6 @@ server.get('/', (req, res) => res.send(`Good day! ${process.env.TEST_PARAM}`));
 
 server.listen(  port, 
                 err => console.log(err ||
+                //messages.portListening, port));
                 messages.portListening, port.green));
 

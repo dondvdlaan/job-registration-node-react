@@ -6,6 +6,7 @@ import { APPROACHED,
         CONSULTANT, 
         ENDUSER, 
         FOOD_AND_BEVERAGE, 
+        HEALTH_CARE, 
         INSURANCE, 
         IT_OEM, 
         PARTNER, 
@@ -21,7 +22,7 @@ interface Props extends Company {
     
 }
 /**
- *  Component to cretae or update a company
+ *  Component to create/update a company
  * 
  * @input   props
  * @output  tsx
@@ -108,6 +109,7 @@ export const CompanyForm = (props: Props) =>{
                     <option value={IT_OEM}>{IT_OEM}</option>
                     <option value={INSURANCE}>{INSURANCE}</option>
                     <option value={FOOD_AND_BEVERAGE}>{FOOD_AND_BEVERAGE}</option>
+                    <option value={HEALTH_CARE}>{HEALTH_CARE}</option>
                 </select>
             </div>
         </div>
