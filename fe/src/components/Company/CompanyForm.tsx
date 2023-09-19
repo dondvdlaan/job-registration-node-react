@@ -15,6 +15,7 @@ import { APPROACHED,
 import { Company }      from "../../types/Company";
 import css                  from "./CompanyForm.module.css";
 import {Method}             from "axios";
+import { CheckBox } from "grommet";
 
 
 interface Props extends Company {
@@ -30,11 +31,12 @@ interface Props extends Company {
 export const CompanyForm = (props: Props) =>{
 
     // *********** Hooks and Constants ***********
-    const [compID]                          = useState(props.compID);
-    const [compName, setCompName]           = useState(props.compName);
-    const [compType, setCompType]           = useState(props.compType);
-    const [compNote, setCompNote]           = useState(props.compNote);
-    const [compStatus, setCompStatus]       = useState(props.compStatus);
+    const [compID]                              = useState(props.compID);
+    const [compName, setCompName]               = useState(props.compName);
+    const [compType, setCompType]               = useState(props.compType);
+    const [compNote, setCompNote]               = useState(props.compNote);
+    const [compStatus, setCompStatus]           = useState(props.compStatus);
+    const [compFavorite, setCompFavorite]       = useState(props.compFavorite);
 
     const navigate = useNavigate();
 
@@ -48,6 +50,7 @@ export const CompanyForm = (props: Props) =>{
         compType,
         compNote,
         compStatus,
+        compFavorite
     })
 
     // *********** Event handling ***********
@@ -116,32 +119,42 @@ export const CompanyForm = (props: Props) =>{
         <div className="form-group row">
             <label htmlFor="compType" className="col-sm-3 col-form-label">Note</label>
             <div className="col-sm-9">
-            <input 
-            type        ="text" 
-            className   ="form-control" 
-            id          ="compNote" 
-            placeholder ="Note"
-            value       ={compNote}
-            onChange    ={(e)=>{setCompNote(e.target.value)}}
-            />
+                <input 
+                type        ="text" 
+                className   ="form-control" 
+                id          ="compNote" 
+                placeholder ="Note"
+                value       ={compNote}
+                onChange    ={(e)=>{setCompNote(e.target.value)}}
+                />
             </div>
         </div>
         <div className="form-group row">
             <label htmlFor="compStatus" className="col-sm-3 col-form-label">Status</label>
             <div className="col-sm-9">
-            <select 
-            name            ="compStatus" 
-            className       ="form-control" 
-            id              ="compStatus" 
-            placeholder     ="-----"
-            value           ={compStatus} 
-            onChange        ={(e)=>{setCompStatus(e.target.value)}}
-            required
-            >
-                <option value={''}  disabled selected >Status</option>
-                <option value={REGISTERED}>{REGISTERED}</option>
-                <option value={APPROACHED}>{APPROACHED}</option>
-            </select>
+                <select 
+                name            ="compStatus" 
+                className       ="form-control" 
+                id              ="compStatus" 
+                placeholder     ="-----"
+                value           ={compStatus} 
+                onChange        ={(e)=>{setCompStatus(e.target.value)}}
+                required
+                >
+                    <option value={''}  disabled selected >Status</option>
+                    <option value={REGISTERED}>{REGISTERED}</option>
+                    <option value={APPROACHED}>{APPROACHED}</option>
+                </select>
+            </div>
+        </div>
+        <div className="form-group row">
+            <label htmlFor="compFavorite" className="col-sm-3 col-form-label">Favorite</label>
+            <div className="col-sm-9">
+                <CheckBox
+                    checked={compFavorite}
+                    //label="interested?"
+                    onChange={(event) => setCompFavorite(event.target.checked)}
+                />
             </div>
         </div>
 

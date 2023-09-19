@@ -1,6 +1,6 @@
 import { ChangeEvent, useState }     from "react";
 import Badge            from 'react-bootstrap/Badge'
-import { api }          from "../../shared/API";
+import { ApiSimplified, api }          from "../../shared/API";
 import { Corporation as Company }  from "../../types/Company";
 import { Pagination }   from "../Pagination";
 import { Method }       from "axios";
@@ -10,6 +10,7 @@ import { SearchOutline } from 'react-ionicons'
 import { UserWorker } from "grommet-icons";
 import { Button, Card } from "react-bootstrap";
 import './Companies.css'
+import { CheckBox } from "grommet";
 
 // Export Components
 export const NoRowsFound = (props:{rows: string}) =>(
@@ -130,7 +131,6 @@ export const Companies = (props: {corporations: Company[]}) => {
    navigate(`/jobsPerCompany/${compID}`);
   }
 
-
   // *************** Functions ***************
   /**
    * Function to check which sorting direction is chosen and which className to use
@@ -182,9 +182,7 @@ export const Companies = (props: {corporations: Company[]}) => {
               <div className="headerText">
                 Jobs per Company
               </div>
-                
             </th>
-
           </tr>
         </thead>
         <tbody>

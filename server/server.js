@@ -29,6 +29,7 @@ server.get('/lostJobs'              , getItems.all);
 
 server.get('/job/:id'               , getItems.jobByID);
 server.get('/company/:id'           , getItems.companyByID);
+server.get('/companiesByFavorite'   , getItems.companiesByFavorite);
 server.get('/employee/:id'          , getItems.employeeByID);
 server.get('/employeesCompany/:id'  , getItems.employeesCompanyByID);
 server.get('/jobsPerCompany/:id'    , getItems.jobsPerCompany);
@@ -40,9 +41,9 @@ server.post('/addJob'               , addItem.job);
 server.post('/addCompany'           , addItem.company);
 server.post('/addEmployee'          , addItem.employee);
 
-server.put('/updateCompany'         , updateItem.company);
-server.put('/updateJob'             , updateItem.job);
-server.put('/updateEmployee'        , updateItem.employee);
+server.put('/updateCompany'             , updateItem.company);
+server.put('/updateJob'                 , updateItem.job);
+server.put('/updateEmployee'            , updateItem.employee);
 
 
 // Testing Docker container

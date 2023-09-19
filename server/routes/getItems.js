@@ -61,6 +61,19 @@ const companyByID = (req, res) =>
 };
 
 /**
+ * GET Company by favorite
+ */
+const companiesByFavorite = (req, res) => 
+{
+    const _sql    = sql.companiesByFavorite;
+
+    db.transmit(_sql)
+    .then(comp=> res.send(comp))
+    .catch(err=> console.log(err))
+};
+
+
+/**
  * GET Employee by Employee ID
  */
 const employeeByID = (req, res) => 
@@ -108,6 +121,7 @@ module.exports = {
   all,
   jobByID,
   companyByID,
+  companiesByFavorite,
   employeeByID,
   employeesCompanyByID,
   jobsPerCompany

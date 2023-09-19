@@ -30,6 +30,7 @@ export const UpdateComp = () =>
             compType       = {company[0].compType}
             compNote       = {company[0].compNote}
             compStatus     = {company[0].compStatus}
+            compFavorite   = {company[0].compFavorite}
             isEdit         = {true}
             />
         )

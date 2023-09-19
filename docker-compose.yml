@@ -3,6 +3,7 @@ version: "3.4"
 x-common-variables: &common-variables
   MYSQL_USER            : pato
   MYSQL_PASSWORD        : duck
+  # pw for root superuser
   MYSQL_ROOT_PASSWORD   : root
   MYSQL_DATABASE        : job
   REACT_APP_SERVER_PORT : 8000
@@ -21,22 +22,11 @@ services:
       MYSQL_DATABASE        : $MYSQL_DATABASE
       REACT_APP_SERVER_PORT : $REACT_APP_SERVER_PORT
     ports:
-      - 3307:3306
+      - 3306:3306
     restart: unless-stopped
+    # Load database from disc
     volumes:
       - ./sqldb/backup_job.sql:/docker-entrypoint-initdb.d/sample.sql
-  
-  phpmyadmin:
-    depends_on:
-      - mysql
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mysql
-    links:
-      - mysql:mysql
-    ports:
-      - 8081:80
-    restart: always
   
   server:
     build: ./server

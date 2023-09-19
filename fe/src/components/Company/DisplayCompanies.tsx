@@ -8,7 +8,7 @@ import { Companies } from "./Companies"
 *
 * @return tsx : Call component Companies
 */
-export const DisplayCompany = () =>{
+export const DisplayCompanies = () =>{
 
   // Retrieve companies from DB
   const [corporations] = useApi<Corporation[]>("allCompanies");

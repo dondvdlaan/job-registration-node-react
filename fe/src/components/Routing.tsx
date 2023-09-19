@@ -7,11 +7,12 @@ import { UpdateJob } from "./Job/UpdateJob";
 import { Summary } from "./Summary";
 import { AddCompany } from "./Company/AddCompany";
 import { UpdateComp } from "./Company/UpdateComp";
-import { DisplayCompany } from "./Company/DisplayCompany";
 import { AddEmployee } from "./Employee/AddEmployee";
 import { LostJobs } from "./Job/LostJobs";
 import { Partners } from "./Partners/Partners";
 import { JobsPerCompany } from "./Company/JobsPerCompany";
+import { DisplayFavoriteCompanies } from "./Company/DisplayFavoriteCompanies";
+import { DisplayCompanies } from "./Company/DisplayCompanies";
 
 export default function Routing(): ReactElement {
   return (
@@ -21,9 +22,10 @@ export default function Routing(): ReactElement {
       <Route path="/lostJobs"               element={<LostJobs />} />
       <Route path="/jobsPerCompany/:compID" element={<JobsPerCompany />} />
 
-      <Route path="/companies"              element={<DisplayCompany />} />
+      <Route path="/companies"              element={<DisplayCompanies />} />
       <Route path="/addCompany"             element={<AddCompany />} />
       <Route path="/updateComp/:idComp"     element={<UpdateComp />} />
+      <Route path="/companiesByFavorite"    element={<DisplayFavoriteCompanies />} />
 
       <Route path="/addJob"                 element={<NewJob />} />
       <Route path="/updateJob/:jobID"       element={<UpdateJob />} />

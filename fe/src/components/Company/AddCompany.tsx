@@ -16,6 +16,7 @@ export const AddCompany = () =>
         compType        = ""
         compNote        = ""
         compStatus      = ""
+        compFavorite    = {false}
         isEdit          = {false}
         />
     )

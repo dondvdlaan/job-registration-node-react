@@ -19,5 +19,6 @@ export interface CompanyWOID {
     compType      : string;
     compNote      : string;
     compStatus    : string;
+    compFavorite  : boolean;
     }
 

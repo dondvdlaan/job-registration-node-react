@@ -50,6 +50,9 @@ export default function Menu(props: Props): ReactElement {
               <Dropdown.Item >
                 <NavLink className="nav-link" to="/addEmployee" >Add Employee </NavLink > 
               </Dropdown.Item>
+              <Dropdown.Item >
+                <NavLink className="nav-link" to="/companiesByFavorite" >Favorite Company </NavLink > 
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
             <NavLink className="nav-link" to="/partners"    >Partners     </NavLink > 

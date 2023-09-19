@@ -16,6 +16,10 @@ module.exports = {
   allCompanies  : 'SELECT * FROM companies ' +
                   'ORDER BY compName ' ,
 
+  companiesByFavorite  :  'SELECT * FROM companies ' +
+                          'WHERE companies.compFavorite = true ' + 
+                          'ORDER BY compName ' ,                
+
   partners      : 'SELECT * FROM companies ' +
                   'WHERE companies.compType = "Partner" ' +
                   'ORDER BY compName',
@@ -58,7 +62,7 @@ module.exports = {
                   '(jobTitle, jobDescription, jobDetails, jobStatus, jobNote, jobContract, compID, emplID)' +
                   'VALUES(?,?,?,?,?,?,?,?)',
 
-  addCompany    : 'INSERT INTO companies(	compName, compType, compNote, compStatus) VALUES(?,?,?,?)',
+  addCompany    : 'INSERT INTO companies(	compName, compType, compNote, compStatus, compFavorite) VALUES(?,?,?,?,?)',
 
   // 2 tables have to be updates, here table employees
   addEmployee   : 'INSERT INTO employees ' +
@@ -71,7 +75,7 @@ module.exports = {
                   'VALUES(?,?) ' ,                
 
   updateCompany : 'UPDATE companies ' +
-                  'SET compName = ?, compType = ?, compNote = ?, compStatus = ? ' +
+                  'SET compName = ?, compType = ?, compNote = ?, compStatus = ?, compFavorite = ? ' +
                   'WHERE compID = ?',
 
   updateJob     : 'UPDATE jobs ' +

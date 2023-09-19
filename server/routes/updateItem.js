@@ -23,7 +23,9 @@ const job = (req, res) => {
     .then((status) =>res.send(status))
     .catch(err=> console.log(err))
 };
-
+/**
+ * Update company
+ */
 const company = (req, res) => {
 
   // Constants and variables
@@ -32,6 +34,7 @@ const company = (req, res) => {
                 req.body.compType,
                 req.body.compNote,
                 req.body.compStatus,
+                req.body.compFavorite,
                 req.body.compID,
               ]
 
@@ -57,12 +60,8 @@ const employee = (req, res) => {
 };
 
 
-
-
-
 module.exports = {
   job,
   company,
   employee
- 
 }
